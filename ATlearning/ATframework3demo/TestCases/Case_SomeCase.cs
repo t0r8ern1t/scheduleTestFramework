@@ -14,7 +14,7 @@ namespace ATframework3demo.TestCases
             return caseCollection;
         }
 
-        public void Test(ScheduleHomePage homePage) { 
+        public void Test(ScheduleHomePage homePage) {
             return;
         }
     }

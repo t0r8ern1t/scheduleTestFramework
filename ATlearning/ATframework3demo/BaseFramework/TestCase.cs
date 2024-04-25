@@ -42,7 +42,7 @@ namespace atFrameWork2.BaseFramework
                 Log.Info($"---------------Запуск кейса '{Title}'---------------");
                 if (EnvType == TestCaseEnvType.Web)
                 {
-                    var scheduleLoginPage = new ScheduleLoginPage(testPortal);
+                    var scheduleLoginPage = new ScheduleLoginPage();
                     var homePage = scheduleLoginPage.Login(testPortal.PortalAdmin);
                     Body.Invoke(homePage);
                 }

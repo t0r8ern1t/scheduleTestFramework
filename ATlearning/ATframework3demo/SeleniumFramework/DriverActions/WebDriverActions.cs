@@ -79,5 +79,12 @@ namespace atFrameWork2.SeleniumFramework
             driver ??= WebItem.DefaultDriver;
             driver.SwitchTo().DefaultContent();
         }
+
+        public static void OpenUrl(string url, IWebDriver driver = default)
+        {
+            Log.Info($"{nameof(OpenUrl)}: {url}");
+            driver ??= WebItem.DefaultDriver;
+            driver.Navigate().GoToUrl(url);
+        }
     }
 }
