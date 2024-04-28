@@ -43,6 +43,7 @@ namespace atFrameWork2.BaseFramework
                 if (EnvType == TestCaseEnvType.Web)
                 {
                     var scheduleLoginPage = new ScheduleLoginPage();
+                    WebDriverActions.OpenUrl("http://project/login/");
                     var homePage = scheduleLoginPage.Login(testPortal.PortalAdmin);
                     Body.Invoke(homePage);
                 }
