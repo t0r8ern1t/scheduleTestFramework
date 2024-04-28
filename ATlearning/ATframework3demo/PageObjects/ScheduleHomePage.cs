@@ -1,4 +1,5 @@
 ﻿using atFrameWork2.SeleniumFramework;
+using ATframework3demo.PageObjects;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -27,11 +28,29 @@ namespace atFrameWork2.PageObjects
             new WebItem("//a[@href='/']", "Кнопка перехода к расписанию");
 
         public static WebItem EntitySelectionButton=>
-            new WebItem("//button[@id='group-selection-button']", "Кнопка выбора сущности для отображения"); //потом локатор будет //button[@id='entity-selection-button']
+            new WebItem("//button[@id='entity-selection-button']", "Кнопка выбора сущности для отображения");
 
-        public ScheduleLoginPage GoToLogin()
+        public ScheduleHomePage Logout()
         {
+            LogoutButton.Click();
+            return new ScheduleHomePage();
+        }
+
+        public ScheduleLoginPage OpenLoginPage()
+        {
+            LoginButton.Click();
             return new ScheduleLoginPage();
+        }
+
+        public AdminPanel OpenAdminPanel()
+        {
+            AdminPanelButton.Click();
+            return new AdminPanel();
+        }
+
+        public bool isLogined()
+        {
+            return LogoutButton.WaitElementDisplayed();
         }
     }
 }
