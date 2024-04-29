@@ -110,19 +110,6 @@ namespace atFrameWork2.SeleniumFramework
             Waiters.StaticWait_s(DefaultWaitAfterActiveAction_s);
         }
 
-        public void Clear(IWebDriver driver = default)
-        {
-            WaitElementDisplayed(driver: driver);
-            PrintActionInfo(nameof(Clear));
-
-            Execute((field, drv) =>
-            {
-                field.Clear();
-            }, driver);
-
-            Waiters.StaticWait_s(DefaultWaitAfterActiveAction_s);
-        }
-
         protected void Execute(Action<IWebElement, IWebDriver> seleniumCode, IWebDriver driver, bool throwAtDebug = false)
         {
             driver ??= DefaultDriver;
