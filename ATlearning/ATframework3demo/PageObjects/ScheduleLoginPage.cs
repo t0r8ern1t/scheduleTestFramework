@@ -1,6 +1,7 @@
 ﻿using atFrameWork2.BaseFramework.LogTools;
 using atFrameWork2.SeleniumFramework;
 using atFrameWork2.TestEntities;
+using ATframework3demo.TestEntities;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,36 @@ namespace atFrameWork2.PageObjects
 {
     public class ScheduleLoginPage
     {
-        public ScheduleHomePage Login(User user) // тут проблема у меня, при повторном логине у меня уже написано admin в поле логина
+        public static WebItem LoginField =>
+            new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина");
+
+        public static WebItem PasswordField =>
+            new WebItem("//input[@name='USER_PASSWORD']", "Поле ввода пароля");
+
+        public static WebItem SaveSessionCheckbox =>
+            new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина");
+
+        public static WebItem LoginButton =>
+            new WebItem("//input[@name='Login']", "Кнопка входа");
+
+        public ScheduleHomePage Login(string login, string password, bool saveSession = false)
         {
-            WebDriverActions.OpenUrl("http://project/login/");
-            new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина")
-                .SendKeys(user.Login);
-            new WebItem("//input[@name='USER_PASSWORD']", "Поле ввода пароля")
-                .SendKeys(user.Password);
-            new WebItem("//input[@name='Login']", "Кнопка входа")
-                .Click();
+            LoginField.Clear();
+            PasswordField.Clear();
+            LoginField.SendKeys(login);
+            PasswordField.SendKeys(password);
+            LoginButton.Click();    
             return new ScheduleHomePage();
+        }
+
+        public ScheduleHomePage Login(User user)
+        {
+            return Login(user.Login, user.Password);
+        }
+
+        public ScheduleHomePage Login(ScheduleUser user)
+        {
+            return Login(user.login, user.password);
         }
     }
 }
