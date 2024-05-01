@@ -10,7 +10,7 @@ namespace ATframework3demo.PageObjects
             new WebItem("//input[@name='TITLE']", "Поле ввода названия предмета");
 
         public static WebItem SubmitButton =>
-            new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка сохранения");
+            new WebItem("//button[@type='submit']", "Кнопка сохранения");
 
         public static WebItem TypeSelector =>
             new WebItem("//select[@name='TYPE']", "Селектор типа аудитории");

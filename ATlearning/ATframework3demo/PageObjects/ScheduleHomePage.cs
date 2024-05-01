@@ -28,7 +28,7 @@ namespace atFrameWork2.PageObjects
             new WebItem("//a[@href='/']", "Кнопка перехода к расписанию");
 
         private static WebItem EntitySelectionButton=>
-            new WebItem("//button[@id='entity-selection-button']", "Кнопка выбора сущности для отображения");
+            new WebItem("//input[@id='entity-selection-button']", "Кнопка выбора сущности для отображения");
 
         public ScheduleHomePage Logout()
         {

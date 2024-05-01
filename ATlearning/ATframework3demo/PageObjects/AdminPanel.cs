@@ -11,8 +11,8 @@ namespace ATframework3demo.PageObjects
         public static WebItem SubjectListButton =>
             new WebItem("//a[@href=\"/admin/#subject\"]", "Кнопка перехода к списку предметов");
 
-        public static WebItem GroupeListButton =>
-            new WebItem("//a[@href=\"/admin/#groupe\"]", "Кнопка перехода к списку групп");
+        public static WebItem GroupListButton =>
+            new WebItem("//a[@href=\"/admin/#group\"]", "Кнопка перехода к списку групп");
 
         public static WebItem AudienceListButton =>
             new WebItem("//a[@href=\"/admin/#audience\"]", "Кнопка перехода к списку групп");
@@ -35,10 +35,10 @@ namespace ATframework3demo.PageObjects
             return new AudienceList();
         }
 
-        public GroupeList OpenGroupeList()
+        public GroupList OpenGroupList()
         {
-            GroupeListButton.Click();
-            return new GroupeList();
+            GroupListButton.Click();
+            return new GroupList();
         }
     }
 }

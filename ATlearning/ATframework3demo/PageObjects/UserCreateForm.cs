@@ -25,10 +25,10 @@ namespace ATframework3demo.PageObjects
             new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля");
 
         public static WebItem RoleSelector =>
-            new WebItem("//select[@name='ROLE']", "Поле ввода подтверждения пароля");
+            new WebItem("//select[@name='ROLE']", "Селектор изменения роли");
 
         public static WebItem SubmitButton =>
-            new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка сохранения");
+            new WebItem("//button[@type='submit']", "Кнопка сохранения");
         
 
         public UserCreateForm SelectRole(string roleName)
