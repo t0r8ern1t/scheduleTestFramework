@@ -4,17 +4,17 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class GroupeCreateForm : ScheduleHomePage
+    public class GroupCreateForm : ScheduleHomePage
     {
         public static WebItem TitleField =>
             new WebItem("//input[@name='TITLE']", "Поле ввода названия группы");
 
         public static WebItem SubmitButton =>
-            new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка сохранения");
+            new WebItem("//button[@type='submit']", "Кнопка сохранения");
 
-        public GroupeCreateForm AddGroupe(Groupe groupe)
+        public GroupCreateForm AddGroup(Group group)
         {
-            TitleField.SendKeys(groupe.title);
+            TitleField.SendKeys(group.title);
             SubmitButton.Click();
             return this;
         }

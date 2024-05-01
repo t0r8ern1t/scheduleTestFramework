@@ -4,7 +4,7 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class GroupeEditForm : ScheduleHomePage
+    public class GroupEditForm : ScheduleHomePage
     {
         public static WebItem TitleField =>
             new WebItem("//input[@name='TITLE']", "Поле ввода названия группы");
@@ -17,7 +17,7 @@ namespace ATframework3demo.PageObjects
 
         private int addSubjectCounter = -1;
 
-        public GroupeEditForm SelectSubject(string subjectName, string selectorXpath)
+        public GroupEditForm SelectSubject(string subjectName, string selectorXpath)
         {
             new WebItem($"{selectorXpath}//child::option[contains(text(),'{subjectName}')]"
                 , $"Опция выбора у селектора {selectorXpath}, с текстом {subjectName}")
@@ -25,7 +25,7 @@ namespace ATframework3demo.PageObjects
             return this;
         }
 
-        public GroupeEditForm AddSubject(Subject subject)
+        public GroupEditForm AddSubject(Subject subject)
         {
             AddSubjectButton.Click();
             addSubjectCounter++;
@@ -36,7 +36,7 @@ namespace ATframework3demo.PageObjects
             return this;
         }
 
-        public GroupeEditForm SaveChanges()
+        public GroupEditForm SaveChanges()
         {
             addSubjectCounter = -1;
             SubmitButton.Click();
