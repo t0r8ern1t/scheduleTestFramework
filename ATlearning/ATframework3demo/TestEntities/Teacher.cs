@@ -6,6 +6,7 @@ namespace ATframework3demo.TestEntities
     public class Teacher : ScheduleUser
     {
         public Teacher()
+            : base()
         {
             role = UserRole.Teacher;
         }

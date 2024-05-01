@@ -4,6 +4,15 @@ namespace ATframework3demo.TestEntities
 {
     public class ScheduleUser
     {
+        public ScheduleUser()
+        {
+            firstName = "FirstName" + DateTime.Now.Ticks;
+            lastName = "LastName" + DateTime.Now.Ticks;
+            login = "testLogin" + DateTime.Now.Ticks;
+            password = "admin1";
+            email = "test" + DateTime.Now.Ticks + "@gmail.com";
+        }
+
         public string login { get; set; }
 
         public string password { get; set; }

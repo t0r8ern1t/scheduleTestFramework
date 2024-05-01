@@ -2,6 +2,12 @@
 {
     public class Subject
     {
+        public Subject(AudienceType audienceType)
+        {
+            title = "Subject" + DateTime.Now.Ticks;
+            this.audienceType = audienceType;
+        }
+
         public string title { get; set; }
 
         public AudienceType audienceType { get; set; }

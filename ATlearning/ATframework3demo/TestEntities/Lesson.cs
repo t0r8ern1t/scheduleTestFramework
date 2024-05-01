@@ -2,14 +2,14 @@
 {
     public class Lesson
     {
-        public Lesson(DayOfWeek dayOfWeek, int number, Subject subject, Audience audience, Teacher teacher, Groupe groupe)
+        public Lesson(DayOfWeek dayOfWeek, int number, Subject subject, Audience audience, Teacher teacher, Group group)
         {
             this.dayOfWeek = dayOfWeek;
             this.number = number;
             this.subject = subject;
             this.audience = audience;
             this.teacher = teacher;
-            this.groupe = groupe;
+            this.group = group;
         }
 
         public DayOfWeek dayOfWeek { get; set; }
@@ -22,11 +22,11 @@
 
         public Audience audience { get; set; }
 
-        public Groupe groupe { get; set; }
+        public Group group { get; set; }
 
         public int GetNumberDayOfWeek()
         {
-            return (int)dayOfWeek + 1;
+            return (int)dayOfWeek;
         }
     }
 }

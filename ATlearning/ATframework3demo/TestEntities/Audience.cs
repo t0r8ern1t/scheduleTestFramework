@@ -2,6 +2,12 @@
 {
     public class Audience
     {
+        public Audience(AudienceType type)
+        {
+            title = $"{new Random().Next(1000000000)}";
+            this.type = type;
+        }
+
         public string title { get; set; }
         
         public AudienceType type { get; set; }
