@@ -1,8 +1,11 @@
-﻿namespace ATframework3demo.TestEntities
+﻿using atFrameWork2.PageObjects;
+using ATframework3demo.PageObjects;
+
+namespace ATframework3demo.TestEntities
 {
     public class Audience
     {
-        public Audience(AudienceType type)
+        public Audience(AudienceType type = AudienceType.Lecture)
         {
             title = $"{new Random().Next(1000000000)}";
             this.type = type;
@@ -25,6 +28,15 @@
                 default:
                     return "";
             }
+        }
+
+        public AudienceCreateForm Create(ScheduleHomePage homePage)
+        {
+            return homePage
+                    .OpenAdminPanel()
+                    .OpenAudienceList()
+                    .OpenCreateAudienceForm()
+                    .AddAudience(this);
         }
     }
 

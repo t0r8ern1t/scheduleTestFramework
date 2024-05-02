@@ -2,10 +2,10 @@
 {
     public class Lesson
     {
-        public Lesson(DayOfWeek dayOfWeek, int number, Subject subject, Audience audience, Teacher teacher, Group group)
+        public Lesson(DayOfWeek dayOfWeek, int lessonNumber, Subject subject, Audience audience, Teacher teacher, Group group)
         {
             this.dayOfWeek = dayOfWeek;
-            this.number = number;
+            number = lessonNumber;
             this.subject = subject;
             this.audience = audience;
             this.teacher = teacher;

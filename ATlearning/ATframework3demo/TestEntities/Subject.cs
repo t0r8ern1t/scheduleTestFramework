@@ -1,8 +1,11 @@
-﻿namespace ATframework3demo.TestEntities
+﻿using atFrameWork2.PageObjects;
+using ATframework3demo.PageObjects;
+
+namespace ATframework3demo.TestEntities
 {
     public class Subject
     {
-        public Subject(AudienceType audienceType)
+        public Subject(AudienceType audienceType = AudienceType.Lecture)
         {
             title = "Subject" + DateTime.Now.Ticks;
             this.audienceType = audienceType;
@@ -25,6 +28,15 @@
                 default:
                     return "";
             }
+        }
+
+        public SubjectCreateForm Create(ScheduleHomePage homePage)
+        {
+            return homePage
+                    .OpenAdminPanel()
+                    .OpenSubjectList()
+                    .OpenSubjectCreateForm()
+                    .AddSubject(this);
         }
     }
 }
