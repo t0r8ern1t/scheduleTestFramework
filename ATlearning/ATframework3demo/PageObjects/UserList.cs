@@ -4,19 +4,17 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class UserList : ScheduleHomePage
+    public class UserList : EntityList
     {
-        public static WebItem AddUserButton =>
-            new WebItem("//a[@id='add-button']", "Кнопка добавления пользователя");
-
         public UserCreateForm OpenCreateUserForm()
         {
-            AddUserButton.Click();
+            AddButton.Click();
             return new UserCreateForm();
         }
 
         public UserEditForm OpenEditUserForm(ScheduleUser user)
         {
+            SearchEntity(user.lastName);
             new WebItem($"//div[contains(text(), '{user.firstName}') and contains(text(), '{user.lastName}')]"
                 , $"Кнопка пользователя {user.login}")
                 .Click();
@@ -25,6 +23,7 @@ namespace ATframework3demo.PageObjects
 
         public TeacherEditForm OpenEditTeacherForm(ScheduleUser user)
         {
+            SearchEntity(user.lastName);
             new WebItem($"//div[contains(text(), '{user.firstName}') and contains(text(), '{user.lastName}')]"
                 , $"Кнопка пользователя {user.login}")
                 .Click();

@@ -4,14 +4,11 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class AudienceList : ScheduleHomePage
+    public class AudienceList : EntityList
     {
-        public static WebItem AddAudienceButton =>
-            new WebItem("//a[@id='add-button']", "Кнопка добавления аудитории");
-
         public AudienceCreateForm OpenCreateAudienceForm()
         {
-            AddAudienceButton.Click();
+            AddButton.Click();
             return new AudienceCreateForm();
         }
     }
