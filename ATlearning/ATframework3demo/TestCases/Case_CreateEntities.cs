@@ -11,10 +11,53 @@ namespace ATframework3demo.TestCases
         {
             var caseCollection = new List<TestCase>();
             caseCollection.Add(new TestCase("Создание пары в расписании, в лекционной аудитории", homePage => CreateLesson(homePage)));
+            caseCollection.Add(new TestCase("Добавление нового преподавателя", homePage => CreateTeacher(homePage)));
             return caseCollection;
         }
 
-        public void CreateLesson(ScheduleHomePage homePage)
+        public void CreateTeacher(ScheduleHomePage homePage)
+        {
+
+            Teacher teacher = new Teacher
+            {
+                firstName = "FirstName" + DateTime.Now.Ticks
+                ,
+                lastName = "LastName" + DateTime.Now.Ticks
+                ,
+                login = "testLogin" + DateTime.Now.Ticks
+                ,
+                password = "admin1"
+                ,
+                email = "autotest@gmail.com"
+            };
+
+            bool isLoginedInCreatedUser = homePage
+                //открыть админ панель
+                .OpenAdminPanel()
+                //открыть список пользователей
+                .OpenUserList()
+                //открыть форму добавления нового пользователя
+                .OpenCreateUserForm()
+                //заполнить поля
+                .FillUserData(teacher)
+                //сохранить
+                .AddUser()
+                //выйти из аккаунта
+                .Logout()
+                //открыть форму авторизации
+                .OpenLoginPage()
+                //войти в созданный аккаунт
+                .Login(teacher)
+                //проверить что вход выполнен
+                .isLogined();
+
+            if (!isLoginedInCreatedUser)
+            {
+                Log.Error("Вход в созданный аккаунт не выполнен");
+            }
+        }
+
+            public void CreateLesson(ScheduleHomePage homePage)
         {
             DayOfWeek dayOfWeek = DayOfWeek.Monday;
             int number = 1;
