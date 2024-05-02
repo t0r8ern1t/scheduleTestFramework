@@ -33,7 +33,7 @@ namespace ATframework3demo.TestEntities
         public SubjectCreateForm Create(ScheduleHomePage homePage)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenSubjectList()
                     .OpenSubjectCreateForm()
                     .AddSubject(this);

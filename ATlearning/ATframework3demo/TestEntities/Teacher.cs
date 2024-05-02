@@ -18,7 +18,7 @@ namespace ATframework3demo.TestEntities
         public UserCreateForm Create(ScheduleHomePage homePage)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenUserList()
                     .OpenCreateUserForm()
                     .FillUserData(this)
@@ -28,7 +28,7 @@ namespace ATframework3demo.TestEntities
         public TeacherEditForm AddTeachingSubject(ScheduleHomePage homePage, Subject subject)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenUserList()
                     .OpenEditTeacherForm(this)
                     .AddSubject(subject)

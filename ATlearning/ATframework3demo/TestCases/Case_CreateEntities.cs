@@ -17,17 +17,16 @@ namespace ATframework3demo.TestCases
 
         public void CreateTeacher(ScheduleHomePage homePage, Teacher teacher)
         {
-            homePage = teacher.Create(homePage).OpenSchedule();
-
-            bool isLoginedInCreatedTeacher = homePage
-                .Logout()
-                .OpenLoginPage()
+            bool isLoginedInCreatedTeacher = teacher.Create(homePage)
+                .LeftMenu.Logout()
+                .LeftMenu.OpenLoginPage()
                 .Login(teacher)
-                .isLogined();
+                .LeftMenu.isLogined();
+
 
             if (!isLoginedInCreatedTeacher)
             {
-                Log.Error("Вход в созданный аккаунт не выполнен");
+                Log.Error($"Вход в созданный аккаунт, с именем {teacher.firstName} и фамилией {teacher.lastName} с ролью {teacher.GetRoleName}, не выполнен");
             }
         }
 
@@ -41,17 +40,17 @@ namespace ATframework3demo.TestCases
             Audience audience = new Audience(audienceType);
             Lesson lesson = new Lesson(lessonDayOfWeek, lessonNumber, subject, audience, teacher, group);
 
-            homePage = group.Create(homePage).OpenSchedule();
+            homePage = group.Create(homePage).LeftMenu.OpenSchedule();
 
-            homePage = subject.Create(homePage).OpenSchedule();
+            homePage = subject.Create(homePage).LeftMenu.OpenSchedule();
 
-            homePage = audience.Create(homePage).OpenSchedule();
+            homePage = audience.Create(homePage).LeftMenu.OpenSchedule();
 
-            homePage = teacher.Create(homePage).OpenSchedule();
+            homePage = teacher.Create(homePage).LeftMenu.OpenSchedule();
 
-            homePage = group.AddSubject(homePage, subject).OpenSchedule();
+            homePage = group.AddSubject(homePage, subject).LeftMenu.OpenSchedule();
 
-            homePage = teacher.AddTeachingSubject(homePage, subject).OpenSchedule();
+            homePage = teacher.AddTeachingSubject(homePage, subject).LeftMenu.OpenSchedule();
 
             homePage
                 .SelectGroup(group)

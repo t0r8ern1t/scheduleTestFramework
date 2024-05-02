@@ -17,7 +17,7 @@ namespace ATframework3demo.TestEntities
         public GroupCreateForm Create(ScheduleHomePage homePage)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenGroupList()
                     .OpenCreateGroupForm()
                     .AddGroup(this);
@@ -26,7 +26,7 @@ namespace ATframework3demo.TestEntities
         public GroupEditForm AddSubject(ScheduleHomePage homePage, Subject subject)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenGroupList()
                     .OpenEditGroupForm(this)
                     .AddSubject(subject)

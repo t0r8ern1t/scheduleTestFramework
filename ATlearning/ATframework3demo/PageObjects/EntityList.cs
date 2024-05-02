@@ -3,8 +3,9 @@ using atFrameWork2.SeleniumFramework;
 
 namespace ATframework3demo.PageObjects
 {
-    public class EntityList : ScheduleHomePage
+    public class EntityList
     {
+        public PortalLeftMenu LeftMenu => new PortalLeftMenu();
         public static WebItem SearchInput =>
             new WebItem("//input[@id='search-input']", "Строка поиска");
 

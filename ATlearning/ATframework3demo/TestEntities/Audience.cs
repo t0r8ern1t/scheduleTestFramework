@@ -33,7 +33,7 @@ namespace ATframework3demo.TestEntities
         public AudienceCreateForm Create(ScheduleHomePage homePage)
         {
             return homePage
-                    .OpenAdminPanel()
+                    .LeftMenu.OpenAdminPanel()
                     .OpenAudienceList()
                     .OpenCreateAudienceForm()
                     .AddAudience(this);

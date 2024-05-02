@@ -4,8 +4,10 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class UserEditForm : ScheduleHomePage
+    public class UserEditForm
     {
+        public PortalLeftMenu LeftMenu => new PortalLeftMenu();
+
         public static WebItem FirstNameField =>
             new WebItem("//input[@name='NAME']", "Поле ввода имени");
 

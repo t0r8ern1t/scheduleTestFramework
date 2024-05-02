@@ -4,8 +4,9 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects
 {
-    public class GroupEditForm : ScheduleHomePage
+    public class GroupEditForm
     {
+        public PortalLeftMenu LeftMenu => new PortalLeftMenu();
         public static WebItem TitleField =>
             new WebItem("//input[@name='TITLE']", "Поле ввода названия группы");
 
