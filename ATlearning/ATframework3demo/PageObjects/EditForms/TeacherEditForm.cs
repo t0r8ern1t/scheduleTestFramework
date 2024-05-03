@@ -1,7 +1,7 @@
 ﻿using atFrameWork2.SeleniumFramework;
 using ATframework3demo.TestEntities;
 
-namespace ATframework3demo.PageObjects
+namespace ATframework3demo.PageObjects.EditForms
 {
     public class TeacherEditForm : UserEditForm
     {
