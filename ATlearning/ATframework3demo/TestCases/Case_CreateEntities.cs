@@ -12,8 +12,52 @@ namespace ATframework3demo.TestCases
             var caseCollection = new List<TestCase>();
             caseCollection.Add(new TestCase("Создание пары в расписании, в лекционной аудитории", homePage => CreateLesson(homePage, AudienceType.Lecture)));
             caseCollection.Add(new TestCase("Создание нового преподавателя", homePage => CreateTeacher(homePage, new Teacher())));
+            caseCollection.Add(new TestCase("Создание нового предмета", homePage => CreateSubject(homePage, new Subject())));
+            caseCollection.Add(new TestCase("Создание новой группы", homePage => CreateGroup(homePage, new Group())));
+            caseCollection.Add(new TestCase("Создание новой аудитории", homePage => CreateAudience(homePage, new Audience())));
             return caseCollection;
         }
+
+        public void CreateAudience(ScheduleHomePage homePage, Audience audience)
+        {
+            var isAudienceRepresentedInAudienceList = audience.Create(homePage)
+                .LeftMenu.OpenAdminPanel()
+                .OpenAudienceList()
+                .IsEntityRepresented(audience.title);
+
+            if (!isAudienceRepresentedInAudienceList)
+            {
+                Log.Error($"Аудитория с названием {audience.title}, не отображается в списке аудиторий");
+            }
+        }
+
+        public void CreateSubject(ScheduleHomePage homePage, Subject subject)
+        {
+            var isSubjectRepresentedInSubjectList = subject.Create(homePage)
+                .LeftMenu.OpenAdminPanel()
+                .OpenSubjectList()
+                .IsEntityRepresented(subject.title);
+
+            if (!isSubjectRepresentedInSubjectList)
+            {
+                Log.Error($"Предмет с названием {subject.title}, не отображается в списке предметов");
+            }
+        }
+
+        public void CreateGroup(ScheduleHomePage homePage, Group group)
+        {
+            var isGroupRepresentedInGrouptList = group.Create(homePage)
+                .LeftMenu.OpenAdminPanel()
+                .OpenGroupList()
+                .IsEntityRepresented(group.title);
+
+            if (!isGroupRepresentedInGrouptList)
+            {
+                Log.Error($"Группа с названием {group.title}, не отображается в списке групп");
+            }
+        }
+
+
 
         public void CreateTeacher(ScheduleHomePage homePage, Teacher teacher)
         {
