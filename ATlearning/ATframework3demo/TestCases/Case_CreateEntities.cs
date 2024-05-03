@@ -26,7 +26,7 @@ namespace ATframework3demo.TestCases
 
             if (!isLoginedInCreatedTeacher)
             {
-                Log.Error($"Вход в созданный аккаунт, с именем {teacher.firstName} и фамилией {teacher.lastName} с ролью {teacher.GetRoleName}, не выполнен");
+                Log.Error($"Вход в созданный аккаунт, с именем {teacher.firstName} и фамилией {teacher.lastName} с ролью {teacher.GetRoleName()}, не выполнен");
             }
         }
 
@@ -58,7 +58,7 @@ namespace ATframework3demo.TestCases
                 .FillClassData(lesson)
                 .SaveChanges();
 
-            if (!homePage.isLessonRepresentInSchedule(lesson))
+            if (!homePage.isLessonRepresentedInSchedule(lesson))
             {
                 Log.Error($"Созданая пара, по предмету {subject.title} в аудитории {audience.title}, не отображается в окне пары: {lesson.GetNumberDayOfWeek()} день недели, {lessonNumber} номер пары");
             }

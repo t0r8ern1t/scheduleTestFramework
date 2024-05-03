@@ -72,7 +72,7 @@ namespace atFrameWork2.PageObjects
             return $"//div[@id='dropdown-{lesson.GetNumberDayOfWeek()}-{lesson.number}']//ancestor::div[@class='box is-clickable couple m-0']";
         }
 
-        public bool isLessonRepresentInSchedule(Lesson lesson)
+        public bool isLessonRepresentedInSchedule(Lesson lesson)
         {
             string lessonWindowXPath = getLessonTextXPath(lesson);
             if (new WebItem($"{lessonWindowXPath}//child::p[text()='{lesson.subject.title}']"
