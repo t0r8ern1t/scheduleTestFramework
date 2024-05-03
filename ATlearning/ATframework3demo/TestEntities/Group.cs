@@ -1,5 +1,6 @@
 ﻿using atFrameWork2.PageObjects;
-using ATframework3demo.PageObjects;
+using ATframework3demo.PageObjects.CreateForms;
+using ATframework3demo.PageObjects.EditForms;
 
 namespace ATframework3demo.TestEntities
 {
