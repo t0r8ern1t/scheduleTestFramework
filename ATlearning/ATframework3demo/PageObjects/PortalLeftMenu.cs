@@ -38,6 +38,9 @@ namespace ATframework3demo.PageObjects
             new WebItem("//ul[@id='schedule-display-entity-list']/li//child::a[contains(@href, 'teacher')]"
                 , "Кнопка выбора режима отображения по преподавателю");
 
+        private static WebItem ImportButton =>
+            new WebItem("//a[@href='/import/']", "Кнопка перехода к импортированию расписания");
+
         public ScheduleHomePage Logout()
         {
             LogoutButton.Click();
@@ -60,6 +63,12 @@ namespace ATframework3demo.PageObjects
         {
             BackToSchedule.Click();
             return new ScheduleHomePage();
+        }
+
+        public ScheduleImportPage OpenImportPanel()
+        {
+            ImportButton.Click();
+            return new ScheduleImportPage();
         }
 
         public bool isLogined()
