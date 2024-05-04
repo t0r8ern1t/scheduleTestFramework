@@ -20,5 +20,29 @@ namespace ATframework3demo.PageObjects.AdminPanel
             UsersButton.Click();
             return new ScheduleUsersPage();
         }
+
+        public ScheduleSubjectsPage OpenSubjectsList()
+        {
+            SubjectsButton.Click();
+            return new ScheduleSubjectsPage();
+        }
+
+        public ScheduleUsersPage OpenGroupsList()
+        {
+            GroupsButton.Click();
+            return new ScheduleUsersPage();
+        }
+
+        public ScheduleUsersPage OpenClassroomsList()
+        {
+            ClassroomsButton.Click();
+            return new ScheduleUsersPage();
+        }
+
+        public ScheduleUsersPage OpenClassroomTypesList()
+        {
+            ClasroomTypesButton.Click();
+            return new ScheduleUsersPage();
+        }
     }
 }

@@ -13,7 +13,6 @@ namespace ATframework3demo.PageObjects.AdminPanel
             new WebItem("//input[@name='EMAIL']", "Поле ввода электронной почты").SendKeys(user.Email);
             new WebItem("//input[@name='PASSWORD']", "Поле ввода пароля").SendKeys(user.Password);
             new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля").SendKeys(user.Password);
-
             new WebItem("//select[@name='ROLE']", "Выпадающий список ролей").SelectListItemByText(user.GetRoleName());
 
             new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();

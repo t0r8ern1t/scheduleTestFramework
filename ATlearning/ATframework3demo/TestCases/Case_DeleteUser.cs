@@ -6,7 +6,7 @@ using atFrameWork2.TestEntities;
 
 namespace ATframework3demo.TestCases
 {
-    public class Case_SomeCase : CaseCollectionBuilder
+    public class Case_DeleteUser : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
         {
