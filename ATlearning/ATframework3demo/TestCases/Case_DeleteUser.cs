@@ -3,6 +3,7 @@ using atFrameWork2.BaseFramework.LogTools;
 using atFrameWork2.PageObjects;
 using atFrameWork2.SeleniumFramework;
 using atFrameWork2.TestEntities;
+using ATframework3demo.PageObjects.AdminPanel;
 
 namespace ATframework3demo.TestCases
 {
@@ -18,7 +19,10 @@ namespace ATframework3demo.TestCases
         public void DeleteUser(ScheduleHomePage homePage) {
             ScheduleUser user = new ScheduleUser();
             NotCase_CreateObjects sys = new NotCase_CreateObjects();
-            sys.CreateUser(user, homePage)
+
+            ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
+
+            sys.CreateUser(user, adminPanel)
                 .OpenUsersList()
                 // открываем форму редактирования
                 .OpenEditForm(user)

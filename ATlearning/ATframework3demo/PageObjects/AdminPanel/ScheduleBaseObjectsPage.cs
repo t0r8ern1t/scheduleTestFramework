@@ -46,6 +46,19 @@ namespace ATframework3demo.PageObjects.AdminPanel
             }
         }
 
+        protected bool FindObject(string name) 
+        {
+
+            var searchBar = new WebItem("//input[@id='search-input']", "Строка поиска");
+            searchBar.Clear();
+            searchBar.SendKeys(name);
+            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+            var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
+
+            return Waiters.WaitForCondition(() => myObject.AssertTextContains(name, "Искомый объект не создан"), 2, 6,
+                $"Ожидание появления строки '{name}'");
+        }
+
         protected void OpenBaseEditForm(string name)
         {
             var searchbar = new WebItem("//input[@id='search-input']", "Строка поиска");
@@ -55,8 +68,10 @@ namespace ATframework3demo.PageObjects.AdminPanel
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
             bool isPresent = Waiters.WaitForCondition(() => myObject.AssertTextContains(name, default), 2, 6, $"Ожидание появления строки '{name}'");
 
-            if (isPresent) myObject.Click();
-            else Log.Error($"Объект {name} не найден");
+            if (isPresent) 
+                myObject.Click();
+            else
+                Log.Error($"Объект {name} не найден");
         }
 
         public ScheduleAdminPanel Return()

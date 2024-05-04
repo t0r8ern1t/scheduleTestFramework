@@ -16,6 +16,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
 
         public ScheduleUsersPage IsUserPresent(ScheduleUser user, bool shouldBePresent)
         {
+            Log.Info($"Поиск пользователя {user.FirstName} в списке");
             IsObjectPresent(user.FirstName, shouldBePresent);
             return this;
         }

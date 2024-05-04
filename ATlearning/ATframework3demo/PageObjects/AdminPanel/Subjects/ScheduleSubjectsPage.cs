@@ -17,6 +17,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Subjects
 
         public ScheduleSubjectsPage IsSubjectPresent(ScheduleSubject subject, bool shouldBePresent)
         {
+            Log.Info($"Поиск предмета {subject.Title} в списке");
             IsObjectPresent(subject.Title, shouldBePresent);
             return this;
         }
@@ -25,6 +26,12 @@ namespace ATframework3demo.PageObjects.AdminPanel.Subjects
         {
             OpenBaseEditForm(subject.Title);
             return new ScheduleEditSubjectPage();
+        }
+
+        public bool FindSubject(ScheduleSubject subject)
+        {
+            Log.Info($"Поиск предмета {subject.Title} в списке");
+            return FindObject(subject.Title);
         }
     }
 }

@@ -22,5 +22,10 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
             OpenBaseEditForm(classroom.Title);
             return new ScheduleEditClassroomPage();
         }
+
+        public bool FindClassroom(ScheduleClassroom classroom)
+        {
+            return FindObject(classroom.Title);
+        }
     }
 }

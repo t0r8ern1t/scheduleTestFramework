@@ -27,37 +27,37 @@ namespace atFrameWork2.TestEntities
             this.Password = "admin1";
             this.Email = "test" + id + "@gmail.com";
             this.Role = UserRole.Admin;
-            this.Subjects = new List<ScheduleSubject>();
         }
 
-        public void ScheduleAdminUser(string login, string password, string firstName, string lastName, string email)
+        public void MakeAdminUser(string id)
         {
-            this.Login = login;
-            this.Password = password;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
+            this.FirstName = "FirstName" + id;
+            this.LastName = "LastName" + id;
+            this.Login = "testLogin" + id;
+            this.Password = "admin1";
+            this.Email = "test" + id + "@gmail.com";
             this.Role = UserRole.Admin;
         }
 
-        public void ScheduleTeacherUser(string login, string password, string firstName, string lastName, string email, List<ScheduleSubject> subjects)
+        public void MakeTeacherUser(string id, List<ScheduleSubject> subjects)
         {
-            this.Login = login;
-            this.Password = password;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
+            this.FirstName = "FirstName" + id;
+            this.LastName = "LastName" + id;
+            this.Login = "testLogin" + id;
+            this.Password = "admin1";
+            this.Email = "test" + id + "@gmail.com";
             this.Role = UserRole.Teacher;
             this.Subjects = subjects;
         }
 
-        public void ScheduleStudentUser(string login, string password, string firstName, string lastName, string email, ScheduleGroup group)
+        public void MakeStudentUser(string id, ScheduleGroup group)
         {
-            this.Login = login;
-            this.Password = password;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
+            this.FirstName = "FirstName" + id;
+            this.LastName = "LastName" + id;
+            this.Login = "testLogin" + id;
+            this.Password = "admin1";
+            this.Email = "test" + id + "@gmail.com";
+            this.Role = UserRole.Admin;
             this.Role = UserRole.Student;
             this.Group = group;
         }

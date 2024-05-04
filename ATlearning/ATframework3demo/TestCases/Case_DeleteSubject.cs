@@ -1,6 +1,7 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.PageObjects;
 using atFrameWork2.TestEntities;
+using ATframework3demo.PageObjects.AdminPanel;
 using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.TestCases
@@ -23,7 +24,9 @@ namespace ATframework3demo.TestCases
             ScheduleSubject editedSubject = new ScheduleSubject("Subject" + id, type);
 
             NotCase_CreateObjects sys = new NotCase_CreateObjects();
-            sys.CreateSubject(subject, homePage)
+            ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
+
+            sys.CreateSubject(subject, adminPanel)
                 // открываем список предметов
                 .OpenSubjectsList()
                 // открываем фрому редактирования

@@ -23,5 +23,10 @@ namespace ATframework3demo.PageObjects.AdminPanel.ClassroomTypes
             OpenBaseEditForm(type.Title);
             return new ScheduleEditClassroomTypePage();
         }
+
+        public bool FindClassroomType(ScheduleClassroomType type)
+        {
+            return FindObject(type.Title);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ATframework3demo.PageObjects.AdminPanel.Classrooms;
+﻿using atFrameWork2.BaseFramework.LogTools;
+using ATframework3demo.PageObjects.AdminPanel.Classrooms;
 using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Groups
@@ -13,6 +14,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
 
         public ScheduleGroupsPage IsGroupPresent(ScheduleGroup group, bool shouldBePresent)
         {
+            Log.Info($"Поиск группы {group.Title} в списке");
             IsObjectPresent(group.Title, shouldBePresent);
             return this;
         }
@@ -21,6 +23,12 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
         {
             OpenBaseEditForm(group.Title);
             return new ScheduleEditGroupPage();
+        }
+
+        public bool FindGroup (ScheduleGroup group)
+        {
+            Log.Info($"Поиск группы {group.Title} в списке");
+            return FindObject(group.Title);
         }
     }
 }
