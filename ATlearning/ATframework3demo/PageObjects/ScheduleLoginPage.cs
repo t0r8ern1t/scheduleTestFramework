@@ -11,15 +11,17 @@ namespace atFrameWork2.PageObjects
 {
     public class ScheduleLoginPage
     {
-        public ScheduleHomePage Login(User user) // тут проблема у меня, при повторном логине у меня уже написано admin в поле логина
+        public ScheduleHomePage Login(User user)
         {
             WebDriverActions.OpenUrl("http://project/login/");
-            new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина")
-                .SendKeys(user.Login);
-            new WebItem("//input[@name='USER_PASSWORD']", "Поле ввода пароля")
-                .SendKeys(user.Password);
-            new WebItem("//input[@name='Login']", "Кнопка входа")
-                .Click();
+
+            var loginField = new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина");
+            loginField.Clear();
+            loginField.SendKeys(user.Login);
+            var passwordField = new WebItem("//input[@name='USER_PASSWORD']", "Поле ввода пароля");
+            passwordField.Clear();
+            passwordField.SendKeys(user.Password);
+            new WebItem("//input[@name='Login']", "Кнопка входа").Click();
             return new ScheduleHomePage();
         }
     }

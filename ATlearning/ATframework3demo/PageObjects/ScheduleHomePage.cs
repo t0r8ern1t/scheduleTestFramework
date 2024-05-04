@@ -1,4 +1,5 @@
 ﻿using atFrameWork2.SeleniumFramework;
+using ATframework3demo.PageObjects.AdminPanel;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,12 @@ namespace atFrameWork2.PageObjects
         public ScheduleLoginPage GoToLogin()
         {
             return new ScheduleLoginPage();
+        }
+
+        public ScheduleAdminPanel OpenAdminPanel()
+        {
+            AdminPanelButton.Click();
+            return new ScheduleAdminPanel();
         }
     }
 }
