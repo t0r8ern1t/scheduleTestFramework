@@ -26,7 +26,9 @@ namespace ATframework3demo.TestCases
             NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys.CreateSubject(subject, adminPanel)
+            sys
+                // создаем предмет
+                .CreateSubject(subject, adminPanel)
                 // открываем список предметов
                 .OpenSubjectsList()
                 // открываем фрому редактирования

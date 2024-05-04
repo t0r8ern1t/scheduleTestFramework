@@ -30,8 +30,11 @@ namespace ATframework3demo.TestCases
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
             sys
+                // создаем пару
                 .CreateClass(myclass, adminPanel)
+                // удаляем пару
                 .DeleteClass(myclass)
+                // проверяем, пропала ли она из расписания
                 .IsClassPresent(myclass, false);
 
             return;
