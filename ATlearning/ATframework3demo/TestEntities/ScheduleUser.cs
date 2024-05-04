@@ -15,29 +15,8 @@ namespace atFrameWork2.TestEntities
         public string Email { get; set; }
         public UserRole Role { get; set; }
 
-        public List<ScheduleSubject> Subjects { get; set; }
-
-        public ScheduleUser(string login, string password, string firstName, string lastName, string email, UserRole role)
-        {
-            this.Login = login;
-            this.Password = password;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.Role = role;
-            this.Subjects = new List<ScheduleSubject>();
-        }
-
-        public ScheduleUser(string login, string password, string firstName, string lastName, string email, UserRole role, List<ScheduleSubject> subjects)
-        {
-            this.Login = login;
-            this.Password = password;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Email = email;
-            this.Role = role;
-            this.Subjects = subjects;
-        }
+        public List<ScheduleSubject>? Subjects { get; set; }
+        public ScheduleGroup? Group { get; set; }
 
         public ScheduleUser()
         {
@@ -49,6 +28,38 @@ namespace atFrameWork2.TestEntities
             this.Email = "test" + id + "@gmail.com";
             this.Role = UserRole.Admin;
             this.Subjects = new List<ScheduleSubject>();
+        }
+
+        public void ScheduleAdminUser(string login, string password, string firstName, string lastName, string email)
+        {
+            this.Login = login;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.Role = UserRole.Admin;
+        }
+
+        public void ScheduleTeacherUser(string login, string password, string firstName, string lastName, string email, List<ScheduleSubject> subjects)
+        {
+            this.Login = login;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.Role = UserRole.Teacher;
+            this.Subjects = subjects;
+        }
+
+        public void ScheduleStudentUser(string login, string password, string firstName, string lastName, string email, ScheduleGroup group)
+        {
+            this.Login = login;
+            this.Password = password;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.Role = UserRole.Student;
+            this.Group = group;
         }
 
         public string GetRoleName()

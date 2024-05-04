@@ -1,5 +1,7 @@
 ﻿using atFrameWork2.SeleniumFramework;
+using ATframework3demo.PageObjects.AdminPanel.Classrooms;
 using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
+using ATframework3demo.PageObjects.AdminPanel.Groups;
 using ATframework3demo.PageObjects.AdminPanel.Subjects;
 using ATframework3demo.PageObjects.AdminPanel.Users;
 
@@ -30,16 +32,16 @@ namespace ATframework3demo.PageObjects.AdminPanel
             return new ScheduleSubjectsPage();
         }
 
-        public ScheduleUsersPage OpenGroupsList()
+        public ScheduleGroupsPage OpenGroupsList()
         {
             GroupsButton.Click();
-            return new ScheduleUsersPage();
+            return new ScheduleGroupsPage();
         }
 
-        public ScheduleUsersPage OpenClassroomsList()
+        public ScheduleClassroomsPage OpenClassroomsList()
         {
             ClassroomsButton.Click();
-            return new ScheduleUsersPage();
+            return new ScheduleClassroomsPage();
         }
 
         public ScheduleClassroomTypesPage OpenClassroomTypesList()

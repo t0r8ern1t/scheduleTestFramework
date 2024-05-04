@@ -17,14 +17,14 @@ namespace ATframework3demo.TestCases
 
         public void DeleteUser(ScheduleHomePage homePage) {
             ScheduleUser user = new ScheduleUser();
-            homePage
-                .OpenAdminPanel()
+            NotCase_CreateObjects sys = new NotCase_CreateObjects();
+            sys.CreateUser(user, homePage)
                 .OpenUsersList()
-                .CreateUser()
-                .FillFields(user)
-                .IsUserPresent(user, true)
+                // открываем форму редактирования
                 .OpenEditForm(user)
+                // удаляем
                 .DeleteUser()
+                // проверяем, удален ли пользователь
                 .IsUserPresent(user, false);
             return;
         }

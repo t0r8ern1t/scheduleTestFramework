@@ -8,12 +8,12 @@ namespace ATframework3demo.PageObjects.AdminPanel
 {
     public abstract class ScheduleBaseObjectsPage
     {
-        public void CreateObject()
+        protected void CreateObject()
         {
             new WebItem("//a[@id='add-button']", "Кнопка Добавить").Click();
         }
 
-        public void IsObjectPresent(string name, bool shouldBePresent)
+        protected void IsObjectPresent(string name, bool shouldBePresent)
         {
             new WebItem("//input[@id='search-input']", "Строка поиска").SendKeys(name);
             new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
@@ -37,16 +37,16 @@ namespace ATframework3demo.PageObjects.AdminPanel
             {
                 if (!isPresent)
                 {
-                    Log.Error($"Объект {name} не удален");
+                    Log.Error($"Объект {name} не найден");
                 }
                 else
                 {
-                    Log.Error($"Объект {name} не найден");
+                    Log.Error($"Объект {name} не удален");
                 }
             }
         }
 
-        public void OpenBaseEditForm(string name)
+        protected void OpenBaseEditForm(string name)
         {
             var searchbar = new WebItem("//input[@id='search-input']", "Строка поиска");
             searchbar.Clear();
