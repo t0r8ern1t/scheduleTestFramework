@@ -24,6 +24,17 @@ namespace atFrameWork2.TestEntities
             this.Role = role;
         }
 
+        public ScheduleUser()
+        {
+            string id = DateTime.Now.Ticks.ToString();
+            this.FirstName = "FirstName" + id;
+            this.LastName = "LastName" + id;
+            this.Login = "testLogin" + id;
+            this.Password = "admin1";
+            this.Email = "test" + id + "@gmail.com";
+            this.Role = UserRole.Admin;
+        }
+
         public string GetRoleName()
         {
             switch (this.Role)

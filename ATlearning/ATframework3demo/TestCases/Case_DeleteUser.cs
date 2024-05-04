@@ -15,21 +15,8 @@ namespace ATframework3demo.TestCases
             return caseCollection;
         }
 
-        public ScheduleUser GenerateUser()
-        {
-            string id = DateTime.Now.Ticks.ToString();
-            string firstName = "FirstName" + id;
-            string lastName = "LastName" + id;
-            string login = "testLogin" + id;
-            string password = "admin1";
-            string email = "test" + id + "@gmail.com";
-            UserRole role = UserRole.Admin;
-            return new ScheduleUser(login, password, firstName, lastName, email, role);
-        }
-
         public void DeleteUser(ScheduleHomePage homePage) {
-            ScheduleUser user = GenerateUser();
-            ScheduleUser editedUser = GenerateUser();
+            ScheduleUser user = new ScheduleUser();
             homePage
                 .OpenAdminPanel()
                 .OpenUsersList()
@@ -38,7 +25,7 @@ namespace ATframework3demo.TestCases
                 .IsUserPresent(user, true)
                 .OpenEditForm(user)
                 .DeleteUser()
-                .IsUserPresent(editedUser, false);
+                .IsUserPresent(user, false);
             return;
         }
     }
