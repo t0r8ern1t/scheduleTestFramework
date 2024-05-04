@@ -1,4 +1,7 @@
 ﻿using atFrameWork2.SeleniumFramework;
+using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
+using ATframework3demo.PageObjects.AdminPanel.Subjects;
+using ATframework3demo.PageObjects.AdminPanel.Users;
 
 namespace ATframework3demo.PageObjects.AdminPanel
 {
@@ -39,10 +42,10 @@ namespace ATframework3demo.PageObjects.AdminPanel
             return new ScheduleUsersPage();
         }
 
-        public ScheduleUsersPage OpenClassroomTypesList()
+        public ScheduleClassroomTypesPage OpenClassroomTypesList()
         {
             ClasroomTypesButton.Click();
-            return new ScheduleUsersPage();
+            return new ScheduleClassroomTypesPage();
         }
     }
 }

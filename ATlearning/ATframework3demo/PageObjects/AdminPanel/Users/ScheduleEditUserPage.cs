@@ -1,6 +1,6 @@
 ﻿using atFrameWork2.SeleniumFramework;
 
-namespace ATframework3demo.PageObjects.AdminPanel
+namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
     public class ScheduleEditUserPage
     {

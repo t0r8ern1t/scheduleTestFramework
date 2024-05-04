@@ -1,7 +1,7 @@
 ﻿using atFrameWork2.SeleniumFramework;
 using atFrameWork2.TestEntities;
 
-namespace ATframework3demo.PageObjects.AdminPanel
+namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
     public class ScheduleCreateUserPage
     {
@@ -17,7 +17,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
 
             new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
 
-            new WebItem("//a[@href='/admin/#user']", "Кнопка Назад").Click();
+            new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
 
             return new ScheduleUsersPage();
         }

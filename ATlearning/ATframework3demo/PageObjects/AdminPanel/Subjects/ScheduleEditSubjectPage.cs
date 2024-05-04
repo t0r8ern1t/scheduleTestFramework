@@ -1,7 +1,7 @@
 ﻿using atFrameWork2.SeleniumFramework;
 using ATframework3demo.TestEntities;
 
-namespace ATframework3demo.PageObjects.AdminPanel
+namespace ATframework3demo.PageObjects.AdminPanel.Subjects
 {
     public class ScheduleEditSubjectPage
     {

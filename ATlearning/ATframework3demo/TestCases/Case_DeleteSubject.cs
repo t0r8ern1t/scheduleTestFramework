@@ -14,12 +14,22 @@ namespace ATframework3demo.TestCases
             return caseCollection;
         }
 
+
+
         public void DeleteUser(ScheduleHomePage homePage)
         {
-            ScheduleSubject subject = new ScheduleSubject();
-            ScheduleSubject editedSubject = new ScheduleSubject();
+            string id = DateTime.Now.Ticks.ToString();
+            ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
+            ScheduleSubject subject = new ScheduleSubject("Subject" + id, type);
+            id = DateTime.Now.Ticks.ToString();
+            ScheduleSubject editedSubject = new ScheduleSubject("Subject" + id, type);
             homePage
                 .OpenAdminPanel()
+                .OpenClassroomTypesList()
+                .CreateClassroomType()
+                .FillFields(type)
+                .IsClassroomTypePresent(type, true)
+                .Return()
                 .OpenSubjectsList()
                 .CreateSubject()
                 .FillFields(subject)
