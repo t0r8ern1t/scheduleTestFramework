@@ -13,8 +13,8 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
 
             foreach (var subject in group.Subjects) 
             {
-                new WebItem("//button[@id'addSubject']", "Кнопка Добавить Предметы").Click();
-                new WebItem($"//select[@name='add_subject_+{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
+                new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
+                new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
                 iter++;
             }
 

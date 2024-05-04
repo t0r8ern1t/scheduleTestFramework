@@ -1,4 +1,5 @@
-﻿using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
+﻿using atFrameWork2.BaseFramework.LogTools;
+using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
 using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
@@ -13,6 +14,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
 
         public ScheduleClassroomsPage IsClassroomPresent(ScheduleClassroom classroom, bool shouldBePresent)
         {
+            Log.Info($"Поиск аудитории {classroom.Title} в списке");
             IsObjectPresent(classroom.Title, shouldBePresent);
             return this;
         }
@@ -25,6 +27,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
 
         public bool FindClassroom(ScheduleClassroom classroom)
         {
+            Log.Info($"Поиск аудитории {classroom.Title} в списке");
             return FindObject(classroom.Title);
         }
     }

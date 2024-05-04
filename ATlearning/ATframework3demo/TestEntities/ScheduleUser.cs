@@ -14,7 +14,6 @@ namespace atFrameWork2.TestEntities
         public string LastName { get; set; }
         public string Email { get; set; }
         public UserRole Role { get; set; }
-
         public List<ScheduleSubject>? Subjects { get; set; }
         public ScheduleGroup? Group { get; set; }
 

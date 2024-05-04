@@ -1,4 +1,5 @@
-﻿using atFrameWork2.SeleniumFramework;
+﻿using atFrameWork2.PageObjects;
+using atFrameWork2.SeleniumFramework;
 using ATframework3demo.PageObjects.AdminPanel.Classrooms;
 using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
 using ATframework3demo.PageObjects.AdminPanel.Groups;
@@ -48,6 +49,12 @@ namespace ATframework3demo.PageObjects.AdminPanel
         {
             ClasroomTypesButton.Click();
             return new ScheduleClassroomTypesPage();
+        }
+
+        public ScheduleHomePage OpenHomePage()
+        {
+            new WebItem("//a[@href='/']", "Кнопка левого меню Вернуться к расписанию").Click();
+            return new ScheduleHomePage();
         }
     }
 }

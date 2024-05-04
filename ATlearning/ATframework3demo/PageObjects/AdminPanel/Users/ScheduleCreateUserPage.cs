@@ -15,7 +15,22 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
             new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля").SendKeys(user.Password);
             new WebItem("//select[@name='ROLE']", "Выпадающий список ролей").SelectListItemByText(user.GetRoleName());
 
-            new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
+            if (user.Role == UserRole.Teacher)
+            {
+                int iter = 0;
+                foreach (var subject in user.Subjects)
+                {
+                    new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
+                    new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
+                    iter++;
+                }
+            }
+            else if (user.Role == UserRole.Student)
+            {
+                new WebItem("//select[@name='GROUP']", "Выпадающий список групп").SelectListItemByText(user.Group.Title);
+            }
+
+                new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
 
             new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
 

@@ -8,7 +8,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
     {
         public ScheduleClassroomsPage FillFields(ScheduleClassroom classroom)
         {
-            new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(classroom.Title);
+            new WebItem("//input[@name='NUMBER']", "Поле ввода Название").SendKeys(classroom.Title);
             new WebItem("//select[@name='TYPE']", "Выпадающий список типов аудиторий").SelectListItemByText(classroom.Type.Title);
 
             new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();

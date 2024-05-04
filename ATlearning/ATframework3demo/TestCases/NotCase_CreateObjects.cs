@@ -1,6 +1,8 @@
-﻿using atFrameWork2.PageObjects;
+﻿using atFrameWork2.BaseFramework.LogTools;
+using atFrameWork2.PageObjects;
 using atFrameWork2.TestEntities;
 using ATframework3demo.PageObjects.AdminPanel;
+using ATframework3demo.PageObjects.AdminPanel.Classrooms;
 using ATframework3demo.PageObjects.AdminPanel.ClassroomTypes;
 using ATframework3demo.PageObjects.AdminPanel.Groups;
 using ATframework3demo.PageObjects.AdminPanel.Subjects;
@@ -12,8 +14,8 @@ namespace ATframework3demo.TestCases
     {
         public ScheduleAdminPanel CreateClassroomType(ScheduleClassroomType type, ScheduleAdminPanel adminPanel)
         {
+            Log.Info("Создание типа аудитории");
             adminPanel
-                // открываем список типов аудиторий
                 .OpenClassroomTypesList()
                 // нажимаем добавить
                 .CreateClassroomType()
@@ -28,11 +30,15 @@ namespace ATframework3demo.TestCases
 
         public ScheduleAdminPanel CreateClassroom(ScheduleClassroom classroom, ScheduleAdminPanel adminPanel)
         {
+            Log.Info("Создание аудитории");
             ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
             if (!classroomTypesList.FindClassroomType(classroom.Type))
             {
-                classroomTypesList.Return();
-                adminPanel = CreateClassroomType(classroom.Type, adminPanel);
+                adminPanel = CreateClassroomType(classroom.Type, classroomTypesList.Return());
+            }
+            else
+            {
+                adminPanel = classroomTypesList.Return();
             }
             adminPanel
                 .OpenClassroomsList()
@@ -45,11 +51,15 @@ namespace ATframework3demo.TestCases
 
         public ScheduleAdminPanel CreateSubject(ScheduleSubject subject, ScheduleAdminPanel adminPanel)
         {
+            Log.Info("Создание предмета");
             ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
             if (!classroomTypesList.FindClassroomType(subject.Type))
             {
-                classroomTypesList.Return();
-                adminPanel = CreateClassroomType(subject.Type, adminPanel);
+                adminPanel = CreateClassroomType(subject.Type, classroomTypesList.Return());
+            }
+            else 
+            {
+                adminPanel = classroomTypesList.Return();  
             }
             adminPanel
                 .OpenSubjectsList()
@@ -62,10 +72,16 @@ namespace ATframework3demo.TestCases
 
         public ScheduleAdminPanel CreateGroup(ScheduleGroup group, ScheduleAdminPanel adminPanel)
         {
+            Log.Info("Создание группы");
+            ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
             foreach (var subject in group.Subjects)
-            {
-                adminPanel = CreateSubject(subject, adminPanel);
+            { 
+                if (!subjectsList.FindSubject(subject))
+                {
+                    adminPanel = CreateSubject(subject, subjectsList.Return());
+                }
             }
+            adminPanel = subjectsList.Return();
 
             adminPanel
                 .OpenGroupsList()
@@ -78,6 +94,7 @@ namespace ATframework3demo.TestCases
 
         public ScheduleAdminPanel CreateUser(ScheduleUser user, ScheduleAdminPanel adminPanel)
         {
+            Log.Info("Создание пользователя");
             switch (user.Role) {
                 case UserRole.Teacher:
                     ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
@@ -85,10 +102,10 @@ namespace ATframework3demo.TestCases
                     {
                         if (!subjectsList.FindSubject(subject))
                         {
-                            subjectsList.Return();
-                            adminPanel = CreateSubject(subject, adminPanel);
+                            adminPanel = CreateSubject(subject, subjectsList.Return());
                         }
                     }
+                    adminPanel = subjectsList.Return();
                     break;
                 case UserRole.Student:
                     ScheduleGroupsPage groupsList = adminPanel.OpenGroupsList();
@@ -97,10 +114,12 @@ namespace ATframework3demo.TestCases
                         groupsList.Return();
                         adminPanel = CreateGroup(user.Group, adminPanel);
                     }
+                    adminPanel = groupsList.Return();
                     break;
                 case UserRole.Admin:
                     break;
             }
+
             adminPanel
                 .OpenUsersList()
                 .CreateUser()
@@ -108,6 +127,24 @@ namespace ATframework3demo.TestCases
                 .IsUserPresent(user, true)
                 .Return();
             return adminPanel;
+        }
+
+        public ScheduleHomePage CreateClass(ScheduleClass myclass, ScheduleAdminPanel adminPanel) 
+        {
+            Log.Info("Создание пары");
+            adminPanel = CreateSubject(myclass.Subject, adminPanel);
+            adminPanel = CreateClassroom(myclass.Classroom, adminPanel);
+            adminPanel = CreateGroup(myclass.Group, adminPanel);
+            adminPanel = CreateUser(myclass.Teacher, adminPanel);
+
+            adminPanel
+                .OpenHomePage()
+                .ChooseGroup(myclass)
+                .AddClass(myclass)
+                .FillFields(myclass)
+                .IsClassPresent(myclass, true);
+
+            return new ScheduleHomePage();
         }
     }
 }

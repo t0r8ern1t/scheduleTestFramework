@@ -19,8 +19,8 @@ namespace ATframework3demo.PageObjects.AdminPanel
             new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
 
-            bool isPresent = Waiters.WaitForCondition(() => myObject.AssertTextContains(name, default), 2, 6,
-    $"Ожидание появления строки '{name}'");
+            bool isPresent = Waiters.WaitForCondition(() => myObject.WaitElementDisplayed(), 2, 6,
+                $"Ожидание появления строки '{name}'");
 
             if (shouldBePresent == isPresent)
             {
