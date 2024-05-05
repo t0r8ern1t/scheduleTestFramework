@@ -7,12 +7,12 @@ using ATframework3demo.PageObjects.AdminPanel;
 
 namespace ATframework3demo.TestCases
 {
-    public class Case_DeleteUser : CaseCollectionBuilder
+    public class Case_DeleteAdmin : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
         {
             var caseCollection = new List<TestCase>();
-            caseCollection.Add(new TestCase("Удаление пользователя", homePage => DeleteUser(homePage)));
+            caseCollection.Add(new TestCase("Удаление пользователя-администратора", homePage => DeleteUser(homePage)));
             return caseCollection;
         }
 

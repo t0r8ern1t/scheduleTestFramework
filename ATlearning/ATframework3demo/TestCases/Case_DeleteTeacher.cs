@@ -6,16 +6,16 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.TestCases
 {
-    public class Case_DeleteClass : CaseCollectionBuilder
+    public class Case_DeleteTeacher : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
         {
             var caseCollection = new List<TestCase>();
-            caseCollection.Add(new TestCase("Удаление пары", homePage => DeleteClass(homePage)));
+            caseCollection.Add(new TestCase("Удаление пользователя-преподавателя", homePage => DeleteTeacher(homePage)));
             return caseCollection;
         }
 
-        public void DeleteClass(ScheduleHomePage homePage)
+        public void DeleteTeacher(ScheduleHomePage homePage)
         {
             string id = DateTime.Now.Ticks.ToString();
             ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
@@ -29,15 +29,16 @@ namespace ATframework3demo.TestCases
             NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys
-                // создаем пару
-                .CreateClass(myclass, adminPanel)
-                // удаляем пару
-                .DeleteClass(myclass)
-                // проверяем, пропала ли она из расписания
+            sys.
+                CreateClass(myclass, adminPanel)
+                .OpenAdminPanel()
+                .OpenUsersList()
+                .OpenEditForm(myclass.Teacher)
+                .DeleteUser()
+                .IsUserPresent(myclass.Teacher, false)
+                .Return()
+                .OpenHomePage()
                 .IsClassPresent(myclass, false);
-
-            return;
         }
     }
 }

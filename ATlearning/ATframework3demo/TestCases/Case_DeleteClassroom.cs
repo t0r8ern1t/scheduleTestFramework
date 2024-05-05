@@ -1,48 +1,46 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.PageObjects;
-using atFrameWork2.TestEntities;
 using ATframework3demo.PageObjects.AdminPanel;
 using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.TestCases
 {
-    public class Case_DeleteSubject : CaseCollectionBuilder
+    public class Case_DeleteClassrom : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
         {
             var caseCollection = new List<TestCase>();
-            caseCollection.Add(new TestCase("Изменение и удаление предмета", homePage => DeleteSubject(homePage)));
+            caseCollection.Add(new TestCase("Изменение и удаление аудитории", homePage => DeleteClassroom(homePage)));
             return caseCollection;
         }
 
-        public void DeleteSubject(ScheduleHomePage homePage)
+        public void DeleteClassroom(ScheduleHomePage homePage)
         {
             string id = DateTime.Now.Ticks.ToString();
             ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
-            ScheduleSubject subject = new ScheduleSubject("Subject" + id, type);
-            id = DateTime.Now.Ticks.ToString();
-            ScheduleSubject editedSubject = new ScheduleSubject("Subject" + id, type);
+            ScheduleClassroom classroom = new ScheduleClassroom(("Room" + id).Substring(0, 9), type);
+            ScheduleClassroom editedClassroom = new ScheduleClassroom(("Room" + id).Substring(0, 8), type);
 
             NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
             sys
                 // создаем предмет
-                .CreateSubject(subject, adminPanel)
+                .CreateClassroom(classroom, adminPanel)
                 // открываем список предметов
-                .OpenSubjectsList()
+                .OpenClassroomsList()
                 // открываем фрому редактирования
-                .OpenEditForm(subject)
+                .OpenEditForm(classroom)
                 // редактируем
-                .EditSubject(editedSubject)
+                .EditClassroom(editedClassroom)
                 // проверяем, изменился ли предмет
-                .IsSubjectPresent(editedSubject, true)
+                .IsClassroomPresent(editedClassroom, true)
                 // открываем форму редактирования
-                .OpenEditForm(editedSubject)
+                .OpenEditForm(editedClassroom)
                 // удаляем
-                .DeleteSubject()
+                .DeleteClassroom()
                 // проверяем, удален ли предмет
-                .IsSubjectPresent(editedSubject, false);
+                .IsClassroomPresent(editedClassroom, false);
             return;
         }
     }

@@ -67,19 +67,26 @@ namespace atFrameWork2.PageObjects
             string cellXpath = $"//div[@id='dropdown-{(int)myclass.Day}-{myclass.Number}']//ancestor::div[@class='box is-clickable couple m-0']";
 
             WebItem subject = new WebItem(cellXpath+$"//child::p[contains(text(), {myclass.Subject.Title})]", "Предмет пары по искомому номеру и дню недели");
-            bool isSubjectPresent = Waiters.WaitForCondition(() => subject.WaitElementDisplayed(), 2, 6, $"Ожидание появления строки '{myclass.Subject.Title}'");
-
-            WebItem classroom = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Classroom.Title})]", "Аудитория пары по искомому номеру и дню недели");
-            bool isClassroomPresent = Waiters.WaitForCondition(() => classroom.WaitElementDisplayed(), 2, 6, $"Ожидание появления строки '{myclass.Classroom.Title}'");
-
-            WebItem group = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Subject.Title})]", "Группа пары по искомому номеру и дню недели");
-            bool isGroupPresent = Waiters.WaitForCondition(() => group.WaitElementDisplayed(), 2, 6, $"Ожидание появления строки '{myclass.Group.Title}'");
-
-            WebItem teacher = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Teacher.FirstName})]", "Преподаватель пары по искомому номеру и дню недели");
-            bool isTeacherPresent = Waiters.WaitForCondition(() => teacher.WaitElementDisplayed(), 2, 6, $"Ожидание появления строки '{myclass.Teacher.FirstName}'");
-
-            Log.Info(isSubjectPresent.ToString() + isClassroomPresent.ToString() + isGroupPresent.ToString() + isTeacherPresent.ToString());
-            bool isPresent = isSubjectPresent && isClassroomPresent && isGroupPresent && isTeacherPresent;
+            bool isSubjectPresent = Waiters.WaitForCondition(() => subject.WaitElementDisplayed(), 1, 2, $"Ожидание появления строки '{myclass.Subject.Title}'");
+            bool isPresent = isSubjectPresent;
+            if (isSubjectPresent)
+            {
+                WebItem classroom = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Classroom.Title})]", "Аудитория пары по искомому номеру и дню недели");
+                bool isClassroomPresent = Waiters.WaitForCondition(() => classroom.WaitElementDisplayed(), 1, 2, $"Ожидание появления строки '{myclass.Classroom.Title}'");
+                isPresent = isClassroomPresent;
+                if (isClassroomPresent)
+                {
+                    WebItem group = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Subject.Title})]", "Группа пары по искомому номеру и дню недели");
+                    bool isGroupPresent = Waiters.WaitForCondition(() => group.WaitElementDisplayed(), 1, 2, $"Ожидание появления строки '{myclass.Group.Title}'");
+                    isPresent= isGroupPresent;
+                    if (isGroupPresent)
+                    {
+                        WebItem teacher = new WebItem(cellXpath + $"//child::p[contains(text(), {myclass.Teacher.FirstName})]", "Преподаватель пары по искомому номеру и дню недели");
+                        bool isTeacherPresent = Waiters.WaitForCondition(() => teacher.WaitElementDisplayed(), 1, 2, $"Ожидание появления строки '{myclass.Teacher.FirstName}'");
+                        isPresent = isTeacherPresent;
+                    }
+                }
+            }
 
             if (shouldBePresent == isPresent)
             {

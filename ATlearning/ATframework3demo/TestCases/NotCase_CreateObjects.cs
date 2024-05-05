@@ -29,18 +29,21 @@ namespace ATframework3demo.TestCases
             return adminPanel;
         }
 
-        public ScheduleAdminPanel CreateClassroom(ScheduleClassroom classroom, ScheduleAdminPanel adminPanel)
+        public ScheduleAdminPanel CreateClassroom(ScheduleClassroom classroom, ScheduleAdminPanel adminPanel, bool isCheckNeeded=true)
         {
             Log.Info("Создание аудитории");
             // проверяем существует ли нужный тип, если нет - создаем
-            ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
-            if (!classroomTypesList.FindClassroomType(classroom.Type))
+            if (isCheckNeeded)
             {
-                adminPanel = CreateClassroomType(classroom.Type, classroomTypesList.Return());
-            }
-            else
-            {
-                adminPanel = classroomTypesList.Return();
+                ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
+                if (!classroomTypesList.FindClassroomType(classroom.Type))
+                {
+                    adminPanel = CreateClassroomType(classroom.Type, classroomTypesList.Return());
+                }
+                else
+                {
+                    adminPanel = classroomTypesList.Return();
+                }
             }
             adminPanel
                 // открываем список аудиторий
@@ -56,18 +59,21 @@ namespace ATframework3demo.TestCases
             return adminPanel;
         }
 
-        public ScheduleAdminPanel CreateSubject(ScheduleSubject subject, ScheduleAdminPanel adminPanel)
+        public ScheduleAdminPanel CreateSubject(ScheduleSubject subject, ScheduleAdminPanel adminPanel, bool isCheckNeeded=true)
         {
             Log.Info("Создание предмета");
             // проверяем, существует ли нужный тип аудитории, если нет - создаем
-            ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
-            if (!classroomTypesList.FindClassroomType(subject.Type))
+            if (isCheckNeeded)
             {
-                adminPanel = CreateClassroomType(subject.Type, classroomTypesList.Return());
-            }
-            else 
-            {
-                adminPanel = classroomTypesList.Return();  
+                ScheduleClassroomTypesPage classroomTypesList = adminPanel.OpenClassroomTypesList();
+                if (!classroomTypesList.FindClassroomType(subject.Type))
+                {
+                    adminPanel = CreateClassroomType(subject.Type, classroomTypesList.Return());
+                }
+                else
+                {
+                    adminPanel = classroomTypesList.Return();
+                }
             }
             adminPanel
                 // открываем список предметов
@@ -83,20 +89,23 @@ namespace ATframework3demo.TestCases
             return adminPanel;
         }
 
-        public ScheduleAdminPanel CreateGroup(ScheduleGroup group, ScheduleAdminPanel adminPanel)
+        public ScheduleAdminPanel CreateGroup(ScheduleGroup group, ScheduleAdminPanel adminPanel, bool isCheckNeeded=true)
         {
             Log.Info("Создание группы");
             // проверяем существуют ли предметы, указанные в параметрах группы
             // если нет - создаем
-            ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
-            foreach (var subject in group.Subjects)
-            { 
-                if (!subjectsList.FindSubject(subject))
+            if (isCheckNeeded)
+            {
+                ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
+                foreach (var subject in group.Subjects)
                 {
-                    adminPanel = CreateSubject(subject, subjectsList.Return());
+                    if (!subjectsList.FindSubject(subject))
+                    {
+                        adminPanel = CreateSubject(subject, subjectsList.Return());
+                    }
                 }
+                adminPanel = subjectsList.Return();
             }
-            adminPanel = subjectsList.Return();
 
             adminPanel
                 // открываем список групп
@@ -112,37 +121,41 @@ namespace ATframework3demo.TestCases
             return adminPanel;
         }
 
-        public ScheduleAdminPanel CreateUser(ScheduleUser user, ScheduleAdminPanel adminPanel)
+        public ScheduleAdminPanel CreateUser(ScheduleUser user, ScheduleAdminPanel adminPanel, bool isCheckNeeded=true)
         {
             Log.Info("Создание пользователя");
-            switch (user.Role) {
-                // если пользователь - преподаватель, проверяем существуют ли предметы, указанные в параметрах
-                // если нет - создаем
-                case UserRole.Teacher:
-                    ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
-                    foreach (var subject in user.Subjects)
-                    {
-                        if (!subjectsList.FindSubject(subject))
+            if (isCheckNeeded)
+            {
+                switch (user.Role)
+                {
+                    // если пользователь - преподаватель, проверяем существуют ли предметы, указанные в параметрах
+                    // если нет - создаем
+                    case UserRole.Teacher:
+                        ScheduleSubjectsPage subjectsList = adminPanel.OpenSubjectsList();
+                        foreach (var subject in user.Subjects)
                         {
-                            adminPanel = CreateSubject(subject, subjectsList.Return());
+                            if (!subjectsList.FindSubject(subject))
+                            {
+                                adminPanel = CreateSubject(subject, subjectsList.Return());
+                            }
                         }
-                    }
-                    adminPanel = subjectsList.Return();
-                    break;
-                // если пользователь - студент, проверяем, существует ли его группа
-                // если нет - создаем
-                case UserRole.Student:
-                    ScheduleGroupsPage groupsList = adminPanel.OpenGroupsList();
-                    if (!groupsList.FindGroup(user.Group))
-                    {
-                        groupsList.Return();
-                        adminPanel = CreateGroup(user.Group, adminPanel);
-                    }
-                    adminPanel = groupsList.Return();
-                    break;
-                case UserRole.Admin:
-                // если пользователь админ, все ок, продолжаем
-                    break;
+                        adminPanel = subjectsList.Return();
+                        break;
+                    // если пользователь - студент, проверяем, существует ли его группа
+                    // если нет - создаем
+                    case UserRole.Student:
+                        ScheduleGroupsPage groupsList = adminPanel.OpenGroupsList();
+                        if (!groupsList.FindGroup(user.Group))
+                        {
+                            groupsList.Return();
+                            adminPanel = CreateGroup(user.Group, adminPanel);
+                        }
+                        adminPanel = groupsList.Return();
+                        break;
+                    case UserRole.Admin:
+                        // если пользователь админ, все ок, продолжаем
+                        break;
+                }
             }
 
             adminPanel
@@ -163,10 +176,11 @@ namespace ATframework3demo.TestCases
         {
             Log.Info("Создание пары");
             // создаем объекты всех параметров
-            adminPanel = CreateSubject(myclass.Subject, adminPanel);
-            adminPanel = CreateClassroom(myclass.Classroom, adminPanel);
-            adminPanel = CreateGroup(myclass.Group, adminPanel);
-            adminPanel = CreateUser(myclass.Teacher, adminPanel);
+            adminPanel = CreateClassroomType(myclass.Subject.Type, adminPanel);
+            adminPanel = CreateSubject(myclass.Subject, adminPanel, false);
+            adminPanel = CreateClassroom(myclass.Classroom, adminPanel, false);
+            adminPanel = CreateGroup(myclass.Group, adminPanel, false);
+            adminPanel = CreateUser(myclass.Teacher, adminPanel, false);
 
             adminPanel
                 // открываем главную страницу

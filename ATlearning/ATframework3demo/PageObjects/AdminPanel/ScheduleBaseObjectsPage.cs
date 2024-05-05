@@ -13,10 +13,17 @@ namespace ATframework3demo.PageObjects.AdminPanel
             new WebItem("//a[@id='add-button']", "Кнопка Добавить").Click();
         }
 
+        protected void Search(string name)
+        {
+            var searchBar = new WebItem("//input[@id='search-input']", "Строка поиска");
+            searchBar.Clear();
+            searchBar.SendKeys(name);
+            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+        }
+
         protected void IsObjectPresent(string name, bool shouldBePresent)
         {
-            new WebItem("//input[@id='search-input']", "Строка поиска").SendKeys(name);
-            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+            Search(name);
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
 
             bool isPresent = Waiters.WaitForCondition(() => myObject.WaitElementDisplayed(), 2, 6,
@@ -48,11 +55,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
 
         protected bool FindObject(string name) 
         {
-
-            var searchBar = new WebItem("//input[@id='search-input']", "Строка поиска");
-            searchBar.Clear();
-            searchBar.SendKeys(name);
-            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+            Search(name);
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
 
             return Waiters.WaitForCondition(() => myObject.AssertTextContains(name, "Искомый объект не создан"), 2, 6,
@@ -61,10 +64,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
 
         protected void OpenBaseEditForm(string name)
         {
-            var searchbar = new WebItem("//input[@id='search-input']", "Строка поиска");
-            searchbar.Clear();
-            searchbar.SendKeys(name);
-            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+            Search(name);
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
             bool isPresent = Waiters.WaitForCondition(() => myObject.AssertTextContains(name, default), 2, 6, $"Ожидание появления строки '{name}'");
 
