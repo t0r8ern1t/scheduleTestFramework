@@ -59,9 +59,6 @@ namespace atFrameWork2.PageObjects
 
         public LessonCreateForm OpenAddLessonForm(Lesson lesson)
         {
-            new WebItem($"//button[@id='button-{lesson.GetNumberDayOfWeek()}-{lesson.number}']"
-                , $"Кнопка опций окна для пары, в день недели {lesson.dayOfWeek}, номер пары {lesson.number}")
-                .Click();
             new WebItem($"//button[@id='button-add-{lesson.GetNumberDayOfWeek()}-{lesson.number}']"
                 , $"Кнопка добавить пару, в день недели {lesson.dayOfWeek}, номер пары {lesson.number}")
                 .Click();
@@ -70,7 +67,7 @@ namespace atFrameWork2.PageObjects
 
         public string getLessonTextXPath(Lesson lesson)
         {
-            return $"//div[@id='dropdown-{lesson.GetNumberDayOfWeek()}-{lesson.number}']//ancestor::div[@class='box is-clickable couple m-0']";
+            return $"//div[@id='dropdown-{lesson.GetNumberDayOfWeek()}-{lesson.number}']//ancestor::div[@class='box couple m-0']";
         }
 
         public bool isLessonRepresentedInSchedule(Lesson lesson)
