@@ -28,7 +28,7 @@ namespace ATframework3demo.PageObjects.CreateForms
         public AudienceCreateForm AddAudience(Audience audience)
         {
             TitleField.SendKeys(audience.title);
-            SelectType(audience.GetTypeName());
+            SelectType(audience.type.title);
             SubmitButton.Click();
             return this;
         }

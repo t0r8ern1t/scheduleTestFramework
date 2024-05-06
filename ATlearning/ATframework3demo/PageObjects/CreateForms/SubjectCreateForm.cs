@@ -28,7 +28,7 @@ namespace ATframework3demo.PageObjects.CreateForms
         public SubjectCreateForm AddSubject(Subject subject)
         {
             TitleField.SendKeys(subject.title);
-            SelectType(subject.GetAudienceTypeName());
+            SelectType(subject.audienceType.title);
             SubmitButton.Click();
             return this;
         }
