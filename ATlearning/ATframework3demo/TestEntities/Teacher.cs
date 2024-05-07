@@ -1,5 +1,6 @@
 ﻿using atFrameWork2.PageObjects;
 using atFrameWork2.TestEntities;
+using ATframework3demo.PageObjects;
 using ATframework3demo.PageObjects.CreateForms;
 using ATframework3demo.PageObjects.EditForms;
 using System.Collections.ObjectModel;
@@ -16,20 +17,18 @@ namespace ATframework3demo.TestEntities
 
         public List<string> subjects { get; set; }
 
-        public UserCreateForm Create(ScheduleHomePage homePage)
+        public UserCreateForm Create(AdminPanel adminPanel)
         {
-            return homePage
-                    .LeftMenu.OpenAdminPanel()
+            return adminPanel
                     .OpenUserList()
                     .OpenCreateUserForm()
                     .FillUserData(this)
                     .AddUser();
         }
 
-        public TeacherEditForm AddTeachingSubject(ScheduleHomePage homePage, Subject subject)
+        public TeacherEditForm AddTeachingSubject(AdminPanel adminPanel, Subject subject)
         {
-            return homePage
-                    .LeftMenu.OpenAdminPanel()
+            return adminPanel
                     .OpenUserList()
                     .OpenEditTeacherForm(this)
                     .AddSubject(subject)

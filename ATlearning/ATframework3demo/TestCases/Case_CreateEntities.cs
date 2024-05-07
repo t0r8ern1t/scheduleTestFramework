@@ -1,6 +1,7 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.BaseFramework.LogTools;
 using atFrameWork2.PageObjects;
+using ATframework3demo.PageObjects;
 using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.TestCases
@@ -20,11 +21,13 @@ namespace ATframework3demo.TestCases
 
         public void CreateAudience(ScheduleHomePage homePage, Audience audience)
         {
-            homePage = audience.type
-                .Create(homePage)
-                .LeftMenu.OpenSchedule();
+            AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
 
-            var isAudienceRepresentedInAudienceList = audience.Create(homePage)
+            audience.type
+                .Create(adminPanel)
+                .LeftMenu.OpenAdminPanel();
+
+            var isAudienceRepresentedInAudienceList = audience.Create(adminPanel)
                 .LeftMenu.OpenAdminPanel()
                 .OpenAudienceList()
                 .IsEntityRepresented(audience.title);
@@ -37,10 +40,13 @@ namespace ATframework3demo.TestCases
 
         public void CreateSubject(ScheduleHomePage homePage, Subject subject)
         {
-            homePage = subject.audienceType
-                .Create(homePage)
-                .LeftMenu.OpenSchedule();
-            var isSubjectRepresentedInSubjectList = subject.Create(homePage)
+            AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
+
+            subject.audienceType
+                .Create(adminPanel)
+                .LeftMenu.OpenAdminPanel();
+
+            var isSubjectRepresentedInSubjectList = subject.Create(adminPanel)
                 .LeftMenu.OpenAdminPanel()
                 .OpenSubjectList()
                 .IsEntityRepresented(subject.title);
@@ -53,7 +59,9 @@ namespace ATframework3demo.TestCases
 
         public void CreateGroup(ScheduleHomePage homePage, Group group)
         {
-            var isGroupRepresentedInGrouptList = group.Create(homePage)
+            AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
+
+            bool isGroupRepresentedInGrouptList = group.Create(adminPanel)
                 .LeftMenu.OpenAdminPanel()
                 .OpenGroupList()
                 .IsEntityRepresented(group.title);
@@ -66,7 +74,9 @@ namespace ATframework3demo.TestCases
 
         public void CreateTeacher(ScheduleHomePage homePage, Teacher teacher)
         {
-            bool isLoginedInCreatedTeacher = teacher.Create(homePage)
+            AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
+
+            bool isLoginedInCreatedTeacher = teacher.Create(adminPanel)
                 .LeftMenu.Logout()
                 .LeftMenu.OpenLoginPage()
                 .Login(teacher)
@@ -87,22 +97,23 @@ namespace ATframework3demo.TestCases
             Teacher teacher = new Teacher();
             Audience audience = new Audience(audienceType);
             Subject subject = new Subject(audienceType);
-            
             Lesson lesson = new Lesson(lessonDayOfWeek, lessonNumber, subject, audience, teacher, group);
 
-            homePage = audienceType.Create(homePage).LeftMenu.OpenSchedule();
+            AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
 
-            homePage = group.Create(homePage).LeftMenu.OpenSchedule();
+            adminPanel = audienceType.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            homePage = subject.Create(homePage).LeftMenu.OpenSchedule();
+            adminPanel = group.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            homePage = audience.Create(homePage).LeftMenu.OpenSchedule();
+            adminPanel = subject.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            homePage = teacher.Create(homePage).LeftMenu.OpenSchedule();
+            adminPanel = audience.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            homePage = group.AddSubject(homePage, subject).LeftMenu.OpenSchedule();
+            adminPanel = teacher.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            homePage = teacher.AddTeachingSubject(homePage, subject).LeftMenu.OpenSchedule();
+            adminPanel = group.AddSubject(adminPanel, subject).LeftMenu.OpenAdminPanel();
+
+            homePage = teacher.AddTeachingSubject(adminPanel, subject).LeftMenu.OpenSchedule();
 
             homePage
                 .SelectGroup(group)

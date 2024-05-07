@@ -1,4 +1,5 @@
 ﻿using atFrameWork2.PageObjects;
+using ATframework3demo.PageObjects;
 using ATframework3demo.PageObjects.CreateForms;
 
 namespace ATframework3demo.TestEntities
@@ -15,10 +16,9 @@ namespace ATframework3demo.TestEntities
 
         public AudienceType audienceType { get; set; }
 
-        public SubjectCreateForm Create(ScheduleHomePage homePage)
+        public SubjectCreateForm Create(AdminPanel adminPanel)
         {
-            return homePage
-                    .LeftMenu.OpenAdminPanel()
+            return adminPanel
                     .OpenSubjectList()
                     .OpenSubjectCreateForm()
                     .AddSubject(this);
