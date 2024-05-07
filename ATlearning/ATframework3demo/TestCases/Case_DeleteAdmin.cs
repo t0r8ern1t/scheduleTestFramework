@@ -2,8 +2,8 @@
 using atFrameWork2.BaseFramework.LogTools;
 using atFrameWork2.PageObjects;
 using atFrameWork2.SeleniumFramework;
-using atFrameWork2.TestEntities;
 using ATframework3demo.PageObjects.AdminPanel;
+using ATframework3demo.TestEntities.Users;
 
 namespace ATframework3demo.TestCases
 {
@@ -17,12 +17,12 @@ namespace ATframework3demo.TestCases
         }
 
         public void DeleteUser(ScheduleHomePage homePage) {
-            ScheduleUser user = new ScheduleUser();
-            NotCase_CreateObjects sys = new NotCase_CreateObjects();
+            string id = DateTime.Now.Ticks.ToString();
+            ScheduleUser user = new ScheduleAdmin(id);
 
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys
+            NotCase_CreateObjects
                 // создаем пользователя
                 .CreateUser(user, adminPanel)
                 // открываем список пользователей

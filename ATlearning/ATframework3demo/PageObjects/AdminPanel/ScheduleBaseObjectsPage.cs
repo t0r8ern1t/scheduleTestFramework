@@ -58,7 +58,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
             Search(name);
             var myObject = new WebItem($"//div[contains(text(),'{name}')]", "Искомый объект");
 
-            return Waiters.WaitForCondition(() => myObject.AssertTextContains(name, "Искомый объект не создан"), 2, 6,
+            return Waiters.WaitForCondition(() => myObject.WaitElementDisplayed(), 2, 6,
                 $"Ожидание появления строки '{name}'");
         }
 

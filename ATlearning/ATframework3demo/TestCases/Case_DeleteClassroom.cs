@@ -17,14 +17,13 @@ namespace ATframework3demo.TestCases
         public void DeleteClassroom(ScheduleHomePage homePage)
         {
             string id = DateTime.Now.Ticks.ToString();
-            ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
-            ScheduleClassroom classroom = new ScheduleClassroom(("Room" + id).Substring(0, 9), type);
-            ScheduleClassroom editedClassroom = new ScheduleClassroom(("Room" + id).Substring(0, 8), type);
+            ScheduleClassroomType type = new ScheduleClassroomType(id);
+            ScheduleClassroom classroom = new ScheduleClassroom(type);
+            ScheduleClassroom editedClassroom = new ScheduleClassroom(type);
 
-            NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys
+            NotCase_CreateObjects
                 // создаем предмет
                 .CreateClassroom(classroom, adminPanel)
                 // открываем список предметов

@@ -15,7 +15,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Subjects
         {
             new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(editedSubject.Title);
             new WebItem("//select[@name='TYPE']", "Выпадающий список типов аудиторий").SelectListItemByText(editedSubject.Type.Title);
-            SaveChanges();
+            Save();
             return new ScheduleSubjectsPage();
         }
     }

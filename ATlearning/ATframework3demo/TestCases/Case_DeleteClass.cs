@@ -1,8 +1,8 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.PageObjects;
-using atFrameWork2.TestEntities;
 using ATframework3demo.PageObjects.AdminPanel;
 using ATframework3demo.TestEntities;
+using ATframework3demo.TestEntities.Users;
 
 namespace ATframework3demo.TestCases
 {
@@ -18,18 +18,16 @@ namespace ATframework3demo.TestCases
         public void DeleteClass(ScheduleHomePage homePage)
         {
             string id = DateTime.Now.Ticks.ToString();
-            ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
-            ScheduleClassroom classroom = new ScheduleClassroom(("Room" + id).Substring(0, 9), type);
-            ScheduleSubject subject = new ScheduleSubject("Subject" + id, type);
-            ScheduleGroup group = new ScheduleGroup("Group" + id, new List<ScheduleSubject> { subject });
-            ScheduleUser teacher = new ScheduleUser();
-            teacher.MakeTeacherUser(id, new List<ScheduleSubject> { subject });
+            ScheduleClassroomType type = new ScheduleClassroomType(id);
+            ScheduleClassroom classroom = new ScheduleClassroom(type);
+            ScheduleSubject subject = new ScheduleSubject(id, type);
+            ScheduleGroup group = new ScheduleGroup(id, new List<ScheduleSubject> { subject });
+            ScheduleTeacher teacher = new ScheduleTeacher(id, new List<ScheduleSubject> { subject });
             ScheduleClass myclass = new ScheduleClass(subject, classroom, group, teacher, ScheduleClass.WeekDay.Monday, 1);
 
-            NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys
+            NotCase_CreateObjects
                 // создаем пару
                 .CreateClass(myclass, adminPanel)
                 // удаляем пару

@@ -11,7 +11,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
             new WebItem("//button[@id='delete-button']", "Подтверждение удаления").Click();
         }
 
-        public void SaveChanges()
+        public void Save()
         {
             new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка Сохранить").Click();
             new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();

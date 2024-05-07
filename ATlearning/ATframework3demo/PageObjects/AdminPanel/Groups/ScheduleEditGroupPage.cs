@@ -41,7 +41,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
                 iter++;
             }
 
-            SaveChanges();
+            Save();
             return new ScheduleGroupsPage();
         }
     }

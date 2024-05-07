@@ -8,17 +8,10 @@ namespace ATframework3demo.TestEntities
         public string Title {  get; set; }
         public ScheduleClassroomType Type { get; set; }
 
-        public ScheduleSubject(string title, ScheduleClassroomType type)
+        public ScheduleSubject(string id, ScheduleClassroomType type)
         {
-            this.Title = title;
-            this.Type = type;
-        }
-
-        public ScheduleSubject()
-        {
-            string id = DateTime.Now.Ticks.ToString();
-            this.Title = "Subject" + id;
-            this.Type = new ScheduleClassroomType();
+            Title = "Subject" + id;
+            Type = type;
         }
     }
 }

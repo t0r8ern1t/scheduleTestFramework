@@ -18,15 +18,14 @@ namespace ATframework3demo.TestCases
         public void DeleteSubject(ScheduleHomePage homePage)
         {
             string id = DateTime.Now.Ticks.ToString();
-            ScheduleClassroomType type = new ScheduleClassroomType("Type" + id);
-            ScheduleSubject subject = new ScheduleSubject("Subject" + id, type);
+            ScheduleClassroomType type = new ScheduleClassroomType(id);
+            ScheduleSubject subject = new ScheduleSubject(id, type);
             id = DateTime.Now.Ticks.ToString();
-            ScheduleSubject editedSubject = new ScheduleSubject("Subject" + id, type);
+            ScheduleSubject editedSubject = new ScheduleSubject(id, type);
 
-            NotCase_CreateObjects sys = new NotCase_CreateObjects();
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            sys
+            NotCase_CreateObjects
                 // создаем предмет
                 .CreateSubject(subject, adminPanel)
                 // открываем список предметов

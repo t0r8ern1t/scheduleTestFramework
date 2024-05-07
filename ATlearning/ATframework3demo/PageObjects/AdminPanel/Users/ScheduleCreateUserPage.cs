@@ -1,11 +1,28 @@
 ﻿using atFrameWork2.SeleniumFramework;
 using atFrameWork2.TestEntities;
+using ATframework3demo.TestEntities;
+using ATframework3demo.TestEntities.Users;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
     public class ScheduleCreateUserPage
     {
-        public ScheduleUsersPage FillFields(ScheduleUser user)
+        public void AddGroup(ScheduleGroup group)
+        {
+            new WebItem("//select[@name='GROUP']", "Выпадающий список групп").SelectListItemByText(group.Title);
+        }
+
+        public void AddSubjects(List<ScheduleSubject> subjects)
+        {
+            int iter = 0;
+            foreach (var subject in subjects)
+            {
+                new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
+                new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
+                iter++;
+            }
+        }
+         public ScheduleCreateUserPage FillFields(ScheduleUser user)
         {
             new WebItem("//input[@name='LOGIN']", "Поле ввода логина").SendKeys(user.Login);
             new WebItem("//input[@name='NAME']", "Поле ввода имени").SendKeys(user.FirstName);
@@ -15,23 +32,24 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
             new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля").SendKeys(user.Password);
             new WebItem("//select[@name='ROLE']", "Выпадающий список ролей").SelectListItemByText(user.GetRoleName());
 
-            if (user.Role == UserRole.Teacher)
+            switch (user)
             {
-                int iter = 0;
-                foreach (var subject in user.Subjects)
-                {
-                    new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
-                    new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
-                    iter++;
-                }
-            }
-            else if (user.Role == UserRole.Student)
-            {
-                new WebItem("//select[@name='GROUP']", "Выпадающий список групп").SelectListItemByText(user.Group.Title);
+                case ScheduleAdmin admin:
+                    break;
+                case ScheduleTeacher teacher:
+                    AddSubjects(teacher.Subjects);
+                    break;
+                case ScheduleStudent student:
+                    AddGroup(student.Group);
+                    break;
             }
 
-                new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
+            return this;
+        }
 
+        public ScheduleUsersPage Save()
+        {
+            new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
             new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
 
             return new ScheduleUsersPage();

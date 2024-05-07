@@ -4,15 +4,9 @@
     {
         public string Title { get; set; }
 
-        public ScheduleClassroomType(string title)
+        public ScheduleClassroomType(string id)
         { 
-            this.Title = title;
+            Title = "Type" + id;
         }
-
-        public ScheduleClassroomType() 
-        { 
-            this.Title = "Type" + DateTime.Now.Ticks.ToString();
-        }
-
     }
 }

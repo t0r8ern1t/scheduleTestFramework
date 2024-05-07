@@ -16,7 +16,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.ClassroomTypes
         public ScheduleClassroomTypesPage EditClassroomType(ScheduleClassroomType editedClassroomType)
         {
             new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(editedClassroomType.Title);
-            SaveChanges();
+            Save();
             return new ScheduleClassroomTypesPage();
         }
     }

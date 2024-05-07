@@ -1,14 +1,14 @@
 ﻿using atFrameWork2.BaseFramework;
 using atFrameWork2.BaseFramework.LogTools;
 using atFrameWork2.SeleniumFramework;
-using atFrameWork2.TestEntities;
+using ATframework3demo.TestEntities.Users;
 using System.Transactions;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
     public class ScheduleUsersPage : ScheduleBaseObjectsPage
     {
-        public ScheduleCreateUserPage CreateUser()
+        public ScheduleCreateUserPage CreateUser(ScheduleUser user)
         {
             CreateObject();
             return new ScheduleCreateUserPage();
