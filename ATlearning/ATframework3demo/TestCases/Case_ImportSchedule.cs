@@ -15,7 +15,7 @@ namespace ATframework3demo.TestCases
 
         public void ImportSchedule(ScheduleHomePage homePage)
         {
-            string file_path = "C:/Users/Tawoker/Desktop/Bitrix/Final Project/Schedules/example-1.xls";
+            string file_path = "C:/Users/Tawoker/Desktop/Bitrix/Final Project/Schedules excel/example-1.xls";
             bool isScheduleImported = homePage
                     .LeftMenu.OpenImportPanel()
                     .ImportSchedule(file_path)
