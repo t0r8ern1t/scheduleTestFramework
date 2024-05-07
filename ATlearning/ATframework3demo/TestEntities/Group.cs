@@ -7,9 +7,10 @@ namespace ATframework3demo.TestEntities
 {
     public class Group
     {
-        public Group()
+        public Group(List<Subject> subjects)
         {
             title = "Group" + DateTime.Now.Ticks;
+            this.subjects = subjects;
         }
 
         public string title { get; set; }
@@ -21,16 +22,15 @@ namespace ATframework3demo.TestEntities
             return adminPanel
                     .OpenGroupList()
                     .OpenCreateGroupForm()
-                    .AddGroup(this);
+                    .AddGroup(this, subjects);
         }
 
-        public GroupEditForm AddSubject(AdminPanel adminPanel, Subject subject)
+        public GroupEditForm AddSubjects(AdminPanel adminPanel, List<Subject> subjects)
         {
             return adminPanel
                     .OpenGroupList()
                     .OpenEditGroupForm(this)
-                    .AddSubject(subject)
-                    .SaveChanges();
+                    .AddSubjects(subjects);
         }
     }
 }

@@ -14,56 +14,36 @@ namespace ATframework3demo.PageObjects.CreateForms
             ["group"] = ("//select[@id='group-select']", "группа")
         };
 
+        public static WebItem EntitySelector((string, string) selectorInfo) =>
+            new WebItem(selectorInfo.Item1, selectorInfo.Item2);
+
         public static WebItem SubmitButton =>
             new WebItem("//button[@id='submit-form-button']", "Кнопка сохранения");
 
         public static WebItem CancelButton =>
             new WebItem("//button[@id='cancel-form-button']", "Кнопка отмены");
 
-        private LessonCreateForm SelectOption((string, string) selectorInfo, string optionText)
-        {
-            new WebItem($"{selectorInfo.Item1}/option[contains(text(),'{optionText}')]"
-                , $"Опция {optionText}, селектор {selectorInfo.Item2}")
-                .Click();
-            return this;
-        }
-
-        private LessonCreateForm OpenSelector((string, string) selectorInfo)
-        {
-            new WebItem($"{selectorInfo.Item1}"
-                , $"Селектор {selectorInfo.Item2}")
-                .Click();
-            return this;
-        }
-
-        public LessonCreateForm SelectEntity((string, string) selectorInfo, string optionText)
-        {
-            OpenSelector(selectorInfo);
-            SelectOption(selectorInfo, optionText);
-            return this;
-        }
-
         public LessonCreateForm SelectSubject(Subject subject)
         {
-            SelectEntity(selectors["subject"], subject.title);
+            EntitySelector(selectors["subject"]).SelectListItemByText(subject.title);
             return this;
         }
 
         public LessonCreateForm SelectAudience(Audience audience)
         {
-            SelectEntity(selectors["audience"], audience.title);
+            EntitySelector(selectors["audience"]).SelectListItemByText(audience.title);
             return this;
         }
 
         public LessonCreateForm SelectTeacher(Teacher teacher)
         {
-            SelectEntity(selectors["teacher"], $"{teacher.firstName} {teacher.lastName}");
+            EntitySelector(selectors["teacher"]).SelectListItemByText($"{teacher.firstName} {teacher.lastName}");
             return this;
         }
 
         public LessonCreateForm SelectGroup(Group group)
         {
-            SelectEntity(selectors["group"], group.title);
+            EntitySelector(selectors["group"]).SelectListItemByText(group.title);
             return this;
         }
 

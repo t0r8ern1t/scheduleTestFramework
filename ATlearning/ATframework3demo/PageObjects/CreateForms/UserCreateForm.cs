@@ -32,16 +32,7 @@ namespace ATframework3demo.PageObjects.CreateForms
         public static WebItem SubmitButton =>
             new WebItem("//button[@type='submit']", "Кнопка сохранения");
 
-
-        public UserCreateForm SelectRole(string roleName)
-        {
-            RoleSelector.Click();
-            new WebItem($"//option[text()='{roleName}']", $"Опция выбора с текстом {roleName}")
-                .Click();
-            return this;
-        }
-
-        public UserCreateForm FillUserData(ScheduleUser user)
+        public void FillBaseUserData(ScheduleUser user)
         {
             LoginField.SendKeys(user.login);
             FirstNameField.SendKeys(user.firstName);
@@ -49,8 +40,7 @@ namespace ATframework3demo.PageObjects.CreateForms
             EmailField.SendKeys(user.email);
             PasswordField.SendKeys(user.password);
             ConfirmPasswordField.SendKeys(user.password);
-            SelectRole(user.GetRoleName());
-            return this;
+            RoleSelector.SelectListItemByText(user.GetRoleName());
         }
 
         public UserCreateForm AddUser()

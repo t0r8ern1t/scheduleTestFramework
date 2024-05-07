@@ -2,7 +2,7 @@
 
 namespace ATframework3demo.TestEntities
 {
-    public class ScheduleUser
+    public abstract class ScheduleUser
     {
         public ScheduleUser()
         {
@@ -23,7 +23,7 @@ namespace ATframework3demo.TestEntities
 
         public string email { get; set; }
 
-        protected UserRole role { get; set; }
+        public UserRole role { get; set; }
 
         public string GetRoleName()
         {

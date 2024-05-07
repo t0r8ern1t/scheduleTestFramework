@@ -9,30 +9,29 @@ namespace ATframework3demo.TestEntities
 {
     public class Teacher : ScheduleUser
     {
-        public Teacher()
+        public Teacher(List<Subject> subjects)
             : base()
         {
             role = UserRole.Teacher;
+            this.subjects = subjects;
         }
 
-        public List<string> subjects { get; set; }
+        public List<Subject> subjects { get; set; }
 
-        public UserCreateForm Create(AdminPanel adminPanel)
+        public TeacherCreateForm Create(AdminPanel adminPanel)
         {
             return adminPanel
                     .OpenUserList()
-                    .OpenCreateUserForm()
-                    .FillUserData(this)
-                    .AddUser();
+                    .OpenCreateTeacherForm()
+                    .AddTeacher(this, subjects);
         }
 
-        public TeacherEditForm AddTeachingSubject(AdminPanel adminPanel, Subject subject)
+        public TeacherEditForm AddTeachingSubjects(AdminPanel adminPanel, List<Subject> subjects)
         {
             return adminPanel
                     .OpenUserList()
                     .OpenEditTeacherForm(this)
-                    .AddSubject(subject)
-                    .SaveChanges();
+                    .AddSubjects(subjects);
         }
     }
 }

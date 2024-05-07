@@ -14,6 +14,12 @@ namespace ATframework3demo.PageObjects.Lists
             return new UserCreateForm();
         }
 
+        public TeacherCreateForm OpenCreateTeacherForm()
+        {
+            AddButton.Click();
+            return new TeacherCreateForm();
+        }
+
         public UserEditForm OpenEditUserForm(ScheduleUser user)
         {
             SearchEntity(user.lastName);

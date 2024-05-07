@@ -17,18 +17,10 @@ namespace ATframework3demo.PageObjects.CreateForms
         public static WebItem TypeSelector =>
             new WebItem("//select[@name='TYPE']", "Селектор типа аудитории");
 
-        public SubjectCreateForm SelectType(string typeName)
-        {
-            TypeSelector.Click();
-            new WebItem($"//option[text()='{typeName}']", $"Опция выбора с текстом {typeName}")
-                .Click();
-            return this;
-        }
-
         public SubjectCreateForm AddSubject(Subject subject)
         {
             TitleField.SendKeys(subject.title);
-            SelectType(subject.audienceType.title);
+            TypeSelector.SelectListItemByText(subject.audienceType.title);
             SubmitButton.Click();
             return this;
         }
