@@ -12,9 +12,9 @@ namespace ATframework3demo.TestCases
         {
             var caseCollection = new List<TestCase>();
             caseCollection.Add(new TestCase("Создание пары в расписании, в лекционной аудитории", homePage => CreateLesson(homePage)));
-            caseCollection.Add(new TestCase("Создание нового преподавателя", homePage => CreateTeacher(homePage, new Teacher())));
+            caseCollection.Add(new TestCase("Создание нового преподавателя", homePage => CreateTeacher(homePage)));
             caseCollection.Add(new TestCase("Создание нового предмета", homePage => CreateSubject(homePage, new Subject(new AudienceType()))));
-            caseCollection.Add(new TestCase("Создание новой группы", homePage => CreateGroup(homePage, new Group())));
+            caseCollection.Add(new TestCase("Создание новой группы", homePage => CreateGroup(homePage)));
             caseCollection.Add(new TestCase("Создание новой аудитории", homePage => CreateAudience(homePage, new Audience(new AudienceType()))));
             return caseCollection;
         }
@@ -57,8 +57,9 @@ namespace ATframework3demo.TestCases
             }
         }
 
-        public void CreateGroup(ScheduleHomePage homePage, Group group)
+        public void CreateGroup(ScheduleHomePage homePage)
         {
+            Group group = new Group(new List<Subject>());
             AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
 
             bool isGroupRepresentedInGrouptList = group.Create(adminPanel)
@@ -72,8 +73,10 @@ namespace ATframework3demo.TestCases
             }
         }
 
-        public void CreateTeacher(ScheduleHomePage homePage, Teacher teacher)
+        public void CreateTeacher(ScheduleHomePage homePage)
         {
+            Teacher teacher = new Teacher(new List<Subject>());
+
             AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
 
             bool isLoginedInCreatedTeacher = teacher.Create(adminPanel)
@@ -93,27 +96,25 @@ namespace ATframework3demo.TestCases
             DayOfWeek lessonDayOfWeek = DayOfWeek.Monday;
             int lessonNumber = 1;
             AudienceType audienceType = new AudienceType();
-            Group group = new Group();
-            Teacher teacher = new Teacher();
             Audience audience = new Audience(audienceType);
             Subject subject = new Subject(audienceType);
+            List<Subject> subjects = new List<Subject> { subject };
+            Group group = new Group(subjects);
+            Teacher teacher = new Teacher(subjects);
+            
             Lesson lesson = new Lesson(lessonDayOfWeek, lessonNumber, subject, audience, teacher, group);
 
             AdminPanel adminPanel = homePage.LeftMenu.OpenAdminPanel();
 
             adminPanel = audienceType.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            adminPanel = group.Create(adminPanel).LeftMenu.OpenAdminPanel();
-
             adminPanel = subject.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
             adminPanel = audience.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            adminPanel = teacher.Create(adminPanel).LeftMenu.OpenAdminPanel();
+            adminPanel = group.Create(adminPanel).LeftMenu.OpenAdminPanel();
 
-            adminPanel = group.AddSubject(adminPanel, subject).LeftMenu.OpenAdminPanel();
-
-            homePage = teacher.AddTeachingSubject(adminPanel, subject).LeftMenu.OpenSchedule();
+            homePage = teacher.Create(adminPanel).LeftMenu.OpenSchedule();
 
             homePage
                 .SelectGroup(group)
