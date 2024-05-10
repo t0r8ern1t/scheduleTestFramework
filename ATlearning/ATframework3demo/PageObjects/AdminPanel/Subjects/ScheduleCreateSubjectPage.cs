@@ -4,16 +4,16 @@ using ATframework3demo.TestEntities;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Subjects
 {
-    public class ScheduleCreateSubjectPage
+    public class ScheduleCreateSubjectPage : ScheduleBaseCreatePage
     {
+        private WebItem titleField => new WebItem("//input[@name='TITLE']", "Поле ввода Название");
+        private WebItem typesList => new WebItem("//select[@name='TYPE']", "Выпадающий список типов аудиторий");
         public ScheduleSubjectsPage FillFields(ScheduleSubject subject)
         {
-            new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(subject.Title);
-            new WebItem("//select[@name='TYPE']", "Выпадающий список ролей").SelectListItemByText(subject.Type.Title);
+            titleField.SendKeys(subject.Title);
+            typesList.SelectListItemByText(subject.Type.Title);
+            Save();
 
-            new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
-
-            new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
             return new ScheduleSubjectsPage();
         }
     }

@@ -2,14 +2,25 @@
 using atFrameWork2.TestEntities;
 using ATframework3demo.TestEntities;
 using ATframework3demo.TestEntities.Users;
+using System.Drawing.Text;
 
 namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
-    public class ScheduleCreateUserPage
+    public class ScheduleCreateUserPage : ScheduleBaseCreatePage
     {
+        private WebItem groupList => new WebItem("//select[@name='GROUP']", "Выпадающий список групп");
+        private WebItem addSubjectButton => new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предмет");
+        private WebItem loginField => new WebItem("//input[@name='LOGIN']", "Поле ввода логина");
+        private WebItem namefield => new WebItem("//input[@name='NAME']", "Поле ввода имени");
+        private WebItem lastNameField => new WebItem("//input[@name='LAST_NAME']", "Поле ввода фамилии");
+        private WebItem emailField => new WebItem("//input[@name='EMAIL']", "Поле ввода электронной почты");
+        private WebItem passwordField => new WebItem("//input[@name='PASSWORD']", "Поле ввода пароля");
+        private WebItem confirmPasswordField => new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля");
+        private WebItem rolesList => new WebItem("//select[@name='ROLE']", "Выпадающий список ролей");
+
         public void AddGroup(ScheduleGroup group)
         {
-            new WebItem("//select[@name='GROUP']", "Выпадающий список групп").SelectListItemByText(group.Title);
+            groupList.SelectListItemByText(group.Title);
         }
 
         public void AddSubjects(List<ScheduleSubject> subjects)
@@ -17,20 +28,20 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
             int iter = 0;
             foreach (var subject in subjects)
             {
-                new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
+                addSubjectButton.Click();
                 new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
                 iter++;
             }
         }
-         public ScheduleCreateUserPage FillFields(ScheduleUser user)
+         public ScheduleUsersPage FillFields(ScheduleUser user)
         {
-            new WebItem("//input[@name='LOGIN']", "Поле ввода логина").SendKeys(user.Login);
-            new WebItem("//input[@name='NAME']", "Поле ввода имени").SendKeys(user.FirstName);
-            new WebItem("//input[@name='LAST_NAME']", "Поле ввода фамилии").SendKeys(user.LastName);
-            new WebItem("//input[@name='EMAIL']", "Поле ввода электронной почты").SendKeys(user.Email);
-            new WebItem("//input[@name='PASSWORD']", "Поле ввода пароля").SendKeys(user.Password);
-            new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля").SendKeys(user.Password);
-            new WebItem("//select[@name='ROLE']", "Выпадающий список ролей").SelectListItemByText(user.GetRoleName());
+            loginField.SendKeys(user.Login);
+            namefield.SendKeys(user.FirstName);
+            lastNameField.SendKeys(user.LastName);
+            emailField.SendKeys(user.Email);
+            passwordField.SendKeys(user.Password);
+            confirmPasswordField.SendKeys(user.Password);
+            rolesList.SelectListItemByText(user.GetRoleName());
 
             switch (user)
             {
@@ -43,15 +54,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
                     AddGroup(student.Group);
                     break;
             }
-
-            return this;
-        }
-
-        public ScheduleUsersPage Save()
-        {
-            new WebItem("//button[@type='submit']", "Кнопка Добавить").Click();
-            new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
-
+            Save();
             return new ScheduleUsersPage();
         }
     }

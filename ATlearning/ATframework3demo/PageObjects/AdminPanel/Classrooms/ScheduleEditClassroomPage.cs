@@ -6,6 +6,9 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
 {
     public class ScheduleEditClassroomPage : ScheduleBaseEditPage
     {
+        private WebItem numberField => new WebItem("//input[@name='NUMBER']", "Поле ввода Название");
+        private WebItem roomsList => new WebItem("//select[@name='TYPE']", "Выпадающий список типов аудиторий");
+
         public ScheduleClassroomsPage DeleteClassroom()
         {
             DeleteObject();
@@ -14,8 +17,8 @@ namespace ATframework3demo.PageObjects.AdminPanel.Classrooms
 
         public ScheduleClassroomsPage EditClassroom(ScheduleClassroom editedClassroom)
         {
-            new WebItem("//input[@name='NUMBER']", "Поле ввода Название").SendKeys(editedClassroom.Title);
-            new WebItem("//select[@name='TYPE']", "Выпадающий список типов аудиторий").SelectListItemByText(editedClassroom.Type.Title);
+            numberField.SendKeys(editedClassroom.Title);
+            roomsList.SelectListItemByText(editedClassroom.Type.Title);
             Save();
             return new ScheduleClassroomsPage();
         }

@@ -5,16 +5,21 @@ namespace ATframework3demo.PageObjects.AdminPanel
 {
     public abstract class ScheduleBaseEditPage
     {
+        protected WebItem deleteButton => new WebItem("//button[@class='button ml-2 is-danger']", "Кнопка Удалить");
+        protected WebItem confirmDeleteButton => new WebItem("//button[@id='delete-button']", "Подтверждение удаления");
+        protected WebItem saveButton => new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка Сохранить");
+        protected WebItem backButton => new WebItem("//a[@id='back-button']", "Кнопка Назад");
+
         public void DeleteObject()
         {
-            new WebItem("//button[@class='button ml-2 is-danger']", "Кнопка Удалить").Click();
-            new WebItem("//button[@id='delete-button']", "Подтверждение удаления").Click();
+            deleteButton.Click();
+            confirmDeleteButton.Click();
         }
 
         public void Save()
         {
-            new WebItem("//button[contains(text(), 'Сохранить')]", "Кнопка Сохранить").Click();
-            new WebItem("//a[@id='back-button']", "Кнопка Назад").Click();
+            saveButton.Click();
+            backButton.Click();
         }
     }
 }

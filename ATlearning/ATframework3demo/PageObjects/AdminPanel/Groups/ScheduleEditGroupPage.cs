@@ -10,6 +10,9 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
 {
     public class ScheduleEditGroupPage : ScheduleBaseEditPage
     {
+        private WebItem titleField => new WebItem("//input[@name='TITLE']", "Поле ввода Название");
+        private WebItem addSubjectButton => new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы");
+
         public ScheduleGroupsPage DeleteGroup()
         {
             DeleteObject();
@@ -18,7 +21,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
 
         public ScheduleGroupsPage EditGroup(ScheduleGroup group, ScheduleGroup editedGroup)
         {
-            new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(editedGroup.Title);
+            titleField.SendKeys(editedGroup.Title);
 
             for (int i = 1; i <= group.Subjects.Count; i++)
             {
@@ -36,7 +39,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.Groups
 
             foreach (var subject in group.Subjects)
             {
-                new WebItem("//button[@id'addSubject']", "Кнопка Добавить Предметы").Click();
+                addSubjectButton.Click();
                 new WebItem($"//select[@name='add_subject_+{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
                 iter++;
             }

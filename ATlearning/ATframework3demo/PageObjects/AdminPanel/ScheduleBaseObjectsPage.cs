@@ -8,17 +8,20 @@ namespace ATframework3demo.PageObjects.AdminPanel
 {
     public abstract class ScheduleBaseObjectsPage
     {
+        protected WebItem addButton => new WebItem("//a[@id='add-button']", "Кнопка Добавить");
+        protected WebItem searchBar => new WebItem("//input[@id='search-input']", "Строка поиска");
+        protected WebItem searchButton => new WebItem("//a[@id='search-button']", "Кнопка Искать");
+        protected WebItem backButton => new WebItem("//a[@href='/admin/']", "Кнопка Назад (переход в админ. панель)");
+
         protected void CreateObject()
         {
-            new WebItem("//a[@id='add-button']", "Кнопка Добавить").Click();
+            addButton.Click();
         }
 
         protected void Search(string name)
         {
-            var searchBar = new WebItem("//input[@id='search-input']", "Строка поиска");
-            searchBar.Clear();
             searchBar.SendKeys(name);
-            new WebItem("//a[@id='search-button']", "Кнопка Искать").Click();
+            searchButton.Click();
         }
 
         protected void IsObjectPresent(string name, bool shouldBePresent)
@@ -76,7 +79,7 @@ namespace ATframework3demo.PageObjects.AdminPanel
 
         public ScheduleAdminPanel Return()
         {
-            new WebItem("//a[@href='/admin/']", "Кнопка Назад (переход в админ. панель)").Click();
+            backButton.Click();
             return new ScheduleAdminPanel();
         }
     }

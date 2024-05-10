@@ -11,18 +11,23 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
 {
     public class ScheduleEditUserPage : ScheduleBaseEditPage
     {
-        public static WebItem nameField =>
+        private WebItem nameField =>
             new WebItem("//input[@name='NAME']", "Поле ввода имени");
-        public static WebItem lastnameField => 
+        private WebItem lastnameField => 
             new WebItem("//input[@name='LAST_NAME']", "Поле ввода фамилии");
-        public static WebItem emailField =>
+        private WebItem emailField =>
             new WebItem("//input[@name='EMAIL']", "Поле ввода электронной почты");
-        public static WebItem passwordField =>
+        private WebItem passwordField =>
             new WebItem("//input[@name='PASSWORD']", "Поле ввода пароля");
-        public static WebItem confirmPasswordField =>
+        private WebItem confirmPasswordField =>
             new WebItem("//input[@name='CONFIRM_PASSWORD']", "Поле ввода подтверждения пароля");
-        public static WebItem roleList =>
+        private WebItem roleList =>
             new WebItem("//select[@name='ROLE']", "Выпадающий список ролей");
+        private WebItem deleteSubjectButton => 
+            new WebItem("//button[contains(@id, 'delete_subject')]", "Кнопка удаления предмета из списка в форме редактирования преподавателя");
+        private WebItem addSubjectButton => new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы");
+        private WebItem groupList => new WebItem("//select[@name='GROUP']", "Выпадающий список групп");
+
 
         public ScheduleUsersPage DeleteUser()
         {
@@ -32,17 +37,14 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
 
         public void EditSubjects(List<ScheduleSubject> subjects) 
         {
-            WebItem deleteButton = new WebItem("//button[contains(@id, 'delete_subject')]", "Кнопка удаления предмета из списка в форме редактирования преподавателя");
-
-            while (deleteButton.WaitElementDisplayed()) { 
-                deleteButton.Click();
-                deleteButton = new WebItem("//button[contains(@id, 'delete_subject')]", "Кнопка удаления предмета из списка в форме редактирования преподавателя");
+            while (deleteSubjectButton.WaitElementDisplayed()) { 
+                deleteSubjectButton.Click();
             }
 
             int iter = 0;
             foreach (var subject in subjects)
             {
-                new WebItem("//button[@id='addSubject']", "Кнопка Добавить Предметы").Click();
+                addSubjectButton.Click();
                 new WebItem($"//select[@name='add_subject_{iter}']", "Выпадающий список предметов").SelectListItemByText(subject.Title);
                 iter++;
             }
@@ -50,20 +52,15 @@ namespace ATframework3demo.PageObjects.AdminPanel.Users
 
         public void EditGroup(ScheduleGroup group)
         {
-            new WebItem("//select[@name='GROUP']", "Выпадающий список групп в форме редактирования студента").SelectListItemByText(group.Title);
+            groupList.SelectListItemByText(group.Title);
         }
 
         public ScheduleUsersPage EditUser(ScheduleUser user)
         {
-            nameField.Clear();
             nameField.SendKeys(user.FirstName);
-            lastnameField.Clear();
             lastnameField.SendKeys(user.LastName);
-            emailField.Clear();
             emailField.SendKeys(user.Email);
-            passwordField.Clear();
             passwordField.SendKeys(user.Password);
-            confirmPasswordField.Clear();
             confirmPasswordField.SendKeys(user.Password);
             roleList.SelectListItemByText(user.GetRoleName());
 

@@ -106,7 +106,7 @@ namespace atFrameWork2.SeleniumFramework
                 textToLog = "[логирование отключено]";
             PrintActionInfo($"Ввод текста {textToLog} в элемент");
 
-            Execute((input, drv) => { input.SendKeys(textToInput); }, driver);
+            Execute((input, drv) => { Clear(); input.SendKeys(textToInput); }, driver);
             Waiters.StaticWait_s(DefaultWaitAfterActiveAction_s);
         }
 

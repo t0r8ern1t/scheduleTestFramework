@@ -6,7 +6,7 @@ using ATframework3demo.PageObjects.AdminPanel;
 
 namespace ATframework3demo.TestCases
 {
-    public class Case_Edit_Teacher : CaseCollectionBuilder
+    public class Case_AddSubjectsToTeacher : CaseCollectionBuilder
     {
         protected override List<TestCase> GetCases()
         {
@@ -26,11 +26,11 @@ namespace ATframework3demo.TestCases
             ScheduleTeacher newTeacher = new ScheduleTeacher(id, new List<ScheduleSubject> { newSubject });
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            NotCase_CreateObjects
-                .CreateSubject(newSubject, adminPanel);
+            newSubject
+                .CreateSubject(adminPanel);
 
-            NotCase_CreateObjects
-                .CreateUser(teacher, adminPanel)
+            teacher
+                .CreateUser(adminPanel)
                 .OpenUsersList()
                 .OpenEditForm(teacher)
                 .EditUser(newTeacher)

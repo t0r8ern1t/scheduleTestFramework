@@ -7,6 +7,8 @@ namespace ATframework3demo.PageObjects.AdminPanel.ClassroomTypes
 {
     public class ScheduleEditClassroomTypePage : ScheduleBaseEditPage
     {
+        private WebItem titleField => new WebItem("//input[@name='TITLE']", "Поле ввода Название");
+
         public ScheduleClassroomTypesPage DeleteClassroomType()
         {
             DeleteObject();
@@ -15,7 +17,7 @@ namespace ATframework3demo.PageObjects.AdminPanel.ClassroomTypes
 
         public ScheduleClassroomTypesPage EditClassroomType(ScheduleClassroomType editedClassroomType)
         {
-            new WebItem("//input[@name='TITLE']", "Поле ввода Название").SendKeys(editedClassroomType.Title);
+            titleField.SendKeys(editedClassroomType.Title);
             Save();
             return new ScheduleClassroomTypesPage();
         }

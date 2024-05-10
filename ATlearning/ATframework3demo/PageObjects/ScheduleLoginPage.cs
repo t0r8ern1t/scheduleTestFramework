@@ -16,10 +16,8 @@ namespace atFrameWork2.PageObjects
             WebDriverActions.OpenUrl("http://project/login/");
 
             var loginField = new WebItem("//input[@name='USER_LOGIN']", "Поле ввода логина");
-            loginField.Clear();
             loginField.SendKeys(user.Login);
             var passwordField = new WebItem("//input[@name='USER_PASSWORD']", "Поле ввода пароля");
-            passwordField.Clear();
             passwordField.SendKeys(user.Password);
             new WebItem("//input[@name='Login']", "Кнопка входа").Click();
             return new ScheduleHomePage();

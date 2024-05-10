@@ -22,9 +22,9 @@ namespace ATframework3demo.TestCases
 
             ScheduleAdminPanel adminPanel = homePage.OpenAdminPanel();
 
-            NotCase_CreateObjects
+            user
                 // создаем пользователя
-                .CreateUser(user, adminPanel)
+                .CreateUser(adminPanel)
                 // открываем список пользователей
                 .OpenUsersList()
                 // открываем форму редактирования
